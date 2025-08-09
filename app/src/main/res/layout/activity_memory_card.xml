@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ukey_body"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include
+        android:id="@+id/ukey_header"
+        layout="@layout/ukey_view_header" >
+    </include>
+
+    <ScrollView
+        android:id="@+id/ukey_content_body"
+        style="@style/ukey_content_body"
+        android:layout_below="@+id/ukey_header" >
+
+        <LinearLayout
+            android:id="@+id/ukey_content"
+            style="@style/ukey_content" >
+
+            <RelativeLayout
+                android:id="@+id/m4442_demo"
+                style="@style/ukey_listitem_top"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="4442 card demo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/m4428_demo"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="SLE 4428 card demo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/at24_demo"
+                style="@style/ukey_listitem_bottom"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="AT24CXXX Card demo" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                style="@style/ukey_listitem_single"
+                android:layout_marginTop="20dp" >
+
+                <TextView
+                    android:id="@+id/function_return_result_tv"
+                    style="@style/ukey_listitem_multiple_text"
+                    android:text="Here is show testing information" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

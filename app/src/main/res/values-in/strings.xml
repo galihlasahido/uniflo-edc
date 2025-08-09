@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">UniEDC</string>
+    
+    <!-- Common -->
+    <string name="back">Kembali</string>
+    <string name="next">Lanjut</string>
+    <string name="submit">Kirim</string>
+    <string name="cancel">Batal</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="success">Berhasil</string>
+    <string name="failed">Gagal</string>
+    <string name="error">Error</string>
+    <string name="loading">Memuat...</string>
+    <string name="please_wait">Mohon tunggu...</string>
+    
+    <!-- Login -->
+    <string name="login">Masuk</string>
+    <string name="user_id">ID Pengguna</string>
+    <string name="password">Kata Sandi</string>
+    <string name="remember_me">Ingat Saya</string>
+    <string name="forgot_password">Lupa Kata Sandi?</string>
+    <string name="login_failed">Login gagal. Silakan coba lagi.</string>
+    <string name="welcome_back">Selamat Datang Kembali</string>
+    
+    <!-- Home Menu -->
+    <string name="menu_sales">Penjualan</string>
+    <string name="menu_balance_inquiry">Cek Saldo</string>
+    <string name="menu_create_pin">Buat PIN</string>
+    <string name="menu_change_pin">Ubah PIN</string>
+    <string name="menu_verify_pin">Verifikasi PIN</string>
+    <string name="menu_cash_withdrawal">Tarik Tunai</string>
+    <string name="menu_transfer">Transfer On Us</string>
+    <string name="menu_settings">Pengaturan</string>
+    
+    <!-- PIN Pages -->
+    <string name="create_pin_title">Buat PIN Baru</string>
+    <string name="create_pin_desc">Masukkan 6 digit PIN baru Anda</string>
+    <string name="confirm_pin_desc">Konfirmasi PIN baru Anda</string>
+    <string name="enter_current_pin">Masukkan PIN saat ini</string>
+    <string name="enter_new_pin">Masukkan PIN baru</string>
+    <string name="confirm_new_pin">Konfirmasi PIN baru</string>
+    <string name="pin_not_match">PIN tidak cocok</string>
+    <string name="pin_created_success">PIN berhasil dibuat</string>
+    <string name="pin_changed_success">PIN berhasil diubah</string>
+    <string name="incorrect_pin">PIN salah</string>
+    <string name="pin_verification_success">Verifikasi PIN berhasil</string>
+    <string name="attempts_remaining">Sisa percobaan: %d</string>
+    
+    <!-- Card -->
+    <string name="insert_card">Masukkan/Gesek Kartu</string>
+    <string name="card_instruction">Silakan masukkan kartu pemberi dana</string>
+    <string name="card_detected">Kartu terdeteksi!</string>
+    <string name="processing_card">Memproses kartu...</string>
+    <string name="card_read_success">Kartu berhasil dibaca</string>
+    <string name="card_read_failed">Gagal membaca kartu</string>
+    <string name="card_removed">Kartu dilepas</string>
+    
+    <!-- Cash Withdrawal -->
+    <string name="cash_withdrawal_title">Tarik Tunai</string>
+    <string name="enter_amount">Masukkan Nominal</string>
+    <string name="select_amount">Pilih Nominal</string>
+    <string name="amount">Nominal</string>
+    <string name="min_amount">Minimal: Rp 50.000</string>
+    <string name="max_amount">Maksimal: Rp 5.000.000</string>
+    <string name="invalid_amount">Nominal tidak valid</string>
+    <string name="amount_multiple_50k">Nominal harus kelipatan Rp 50.000</string>
+    <string name="insufficient_balance">Saldo tidak mencukupi</string>
+    <string name="withdrawal_success">Penarikan tunai berhasil</string>
+    <string name="withdrawal_failed">Penarikan tunai gagal</string>
+    
+    <!-- Transfer -->
+    <string name="transfer_title">Transfer On Us</string>
+    <string name="select_bank">Pilih Bank</string>
+    <string name="destination_account">No. Rekening Tujuan</string>
+    <string name="account_name">Nama Penerima</string>
+    <string name="transfer_amount">Nominal Transfer</string>
+    <string name="transfer_note">Berita Transfer</string>
+    <string name="transfer_fee">Biaya Admin</string>
+    <string name="total_amount">Total</string>
+    <string name="transfer_success">Transfer berhasil</string>
+    <string name="transfer_failed">Transfer gagal</string>
+    <string name="confirm_transfer">Konfirmasi Transfer</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Pengaturan</string>
+    <string name="language">Bahasa</string>
+    <string name="printer">Printer</string>
+    <string name="network">Jaringan</string>
+    <string name="display">Tampilan</string>
+    <string name="sound">Suara</string>
+    <string name="about">Tentang</string>
+    <string name="device_info">Info Perangkat</string>
+    <string name="terminal_config">Konfigurasi Terminal</string>
+    <string name="security_settings">Pengaturan Keamanan</string>
+    <string name="transaction_limits">Limit Transaksi</string>
+    
+    <!-- Transaction Status -->
+    <string name="transaction_processing">Memproses transaksi...</string>
+    <string name="transaction_approved">Transaksi disetujui</string>
+    <string name="transaction_declined">Transaksi ditolak</string>
+    <string name="transaction_timeout">Transaksi timeout</string>
+    <string name="transaction_cancelled">Transaksi dibatalkan</string>
+    
+    <!-- Error Messages -->
+    <string name="sdk_not_initialized">SDK belum diinisialisasi</string>
+    <string name="card_reader_not_available">Pembaca kartu tidak tersedia</string>
+    <string name="card_reader_error">Error pembaca kartu</string>
+    <string name="network_error">Kesalahan jaringan</string>
+    <string name="timeout_error">Waktu habis</string>
+    <string name="unknown_error">Kesalahan tidak diketahui</string>
+    
+    <!-- Receipt -->
+    <string name="print_receipt">Cetak Struk</string>
+    <string name="receipt_copy">Salinan Struk</string>
+    <string name="merchant_copy">Copy Merchant</string>
+    <string name="customer_copy">Copy Customer</string>
+    
+    <!-- Status -->
+    <string name="status">Status</string>
+    <string name="connected">Terhubung</string>
+    <string name="disconnected">Terputus</string>
+    <string name="kernel_connected">Kernel terhubung</string>
+</resources>

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bas_gradient_header">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PIN Pembayaran"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="40dp" />
+
+    </LinearLayout>
+
+    <!-- Main content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center">
+
+            <!-- Card and Amount Info -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_card_background"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="32dp">
+
+                <TextView
+                    android:id="@+id/card_info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Kartu: ****1234"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:id="@+id/amount_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Rp 100.000"
+                    android:textColor="#4CAF50"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- PIN Entry Section -->
+            <LinearLayout
+                android:id="@+id/pin_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_card_background"
+                android:orientation="vertical"
+                android:padding="32dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="24dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Masukkan PIN Kartu"
+                    android:textColor="#333333"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- PIN bullets display -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/pin_bullet_1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/pin_bullet_2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/pin_bullet_3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/pin_bullet_4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/pin_bullet_5"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/pin_bullet_6"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Virtual Keypad -->
+            <LinearLayout
+                android:id="@+id/keypad_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_card_background"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:elevation="4dp"
+                android:visibility="gone">
+
+                <!-- Row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/key_1"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="1"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/key_2"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="2"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/key_3"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="3"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/key_4"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="4"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/key_5"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="5"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/key_6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="6"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Row 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/key_7"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="7"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/key_8"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="8"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/key_9"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="9"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Row 4 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/key_clear"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="⌫"
+                        android:textColor="#FF5722"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/key_0"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/button_outline_green"
+                        android:text="0"
+                        android:textColor="#333333"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

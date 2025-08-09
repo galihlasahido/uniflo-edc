@@ -1,0 +1,315 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ukey_body"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include
+        android:id="@+id/ukey_header"
+        layout="@layout/ukey_view_header" />
+
+    <ScrollView
+        android:id="@+id/F360_tape_lamp"
+        style="@style/ukey_content_body"
+        android:layout_below="@+id/ukey_header">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            style="@style/ukey_content_body"
+            android:layout_below="@+id/ukey_header"
+            android:layout_margin="12dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                style="@style/ukey_listitem_single"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:text="@string/tape_lamp_type" />
+
+                <Spinner
+                    android:id="@+id/tape_lamp_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/tape_lamp_type_list" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/tap_lamp_rgb_set"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="@string/tape_lamp_rgb_scope_set_hint" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/rgb_red_value"
+                            style="@style/ukey_listitem_single"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/red"
+                            android:gravity="center"
+                            android:hint="@string/tape_lamp_rgb_scope_hint"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+
+                        <EditText
+                            android:id="@+id/rgb_green_value"
+                            style="@style/ukey_listitem_single"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/GREEN"
+                            android:gravity="center"
+                            android:hint="@string/tape_lamp_rgb_scope_hint"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+
+                        <EditText
+                            android:id="@+id/rgb_blue_value"
+                            style="@style/ukey_listitem_single"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/BLUE"
+                            android:gravity="center"
+                            android:hint="@string/tape_lamp_rgb_scope_hint"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/ukey_listitem_single"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/tape_lamp_lightness" />
+
+                    <EditText
+                        android:id="@+id/lightness_value"
+                        style="@style/ukey_listitem_single"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/line"
+                        android:gravity="center"
+                        android:hint="@string/tape_lamp_min_lightness"
+                        android:inputType="number"
+                        android:maxLength="3" />
+
+                    <EditText
+                        android:id="@+id/lightness_max_value"
+                        style="@style/ukey_listitem_single"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@color/line"
+                        android:gravity="center"
+                        android:hint="@string/tape_lamp_max_lightness"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:visibility="gone" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/tape_lamp_step_gap"
+                    style="@style/ukey_listitem_single"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/tape_lamp_lightness_step_gap" />
+
+                    <EditText
+                        android:id="@+id/lightness_step_value"
+                        style="@style/ukey_listitem_single"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@color/line"
+                        android:gravity="center"
+                        android:hint="step"
+                        android:inputType="number"
+                        android:maxLength="5" />
+
+                    <EditText
+                        android:id="@+id/lightness_gap_value"
+                        style="@style/ukey_listitem_single"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="2"
+                        android:background="@color/line"
+                        android:gravity="center"
+                        android:hint="gap(ms)"
+                        android:inputType="number"
+                        android:maxLength="5" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/tape_lamp_on"
+                    style="@style/ukey_listitem_single"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="turn on" />
+
+                <Button
+                    android:id="@+id/tape_lamp_off"
+                    style="@style/ukey_listitem_single"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="turn off" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/card_indicator_on"
+                    style="@style/ukey_listitem_single"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="indicator on" />
+
+                <Button
+                    android:id="@+id/card_indicator_off"
+                    style="@style/ukey_listitem_single"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="indicator off" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/power_light_red"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/red" />
+
+                    <CheckBox
+                        android:id="@+id/power_light_green"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/GREEN" />
+
+                    <CheckBox
+                        android:id="@+id/power_light_blue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/BLUE" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/power_indicator_on"
+                        style="@style/ukey_listitem_single"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="power light on" />
+
+                    <Button
+                        android:id="@+id/power_indicator_off"
+                        style="@style/ukey_listitem_single"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="power light off" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+</RelativeLayout>

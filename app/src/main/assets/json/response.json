@@ -1,0 +1,28 @@
+{
+  "responseCode": "00",
+  "responseMessage": "Approved or completed successfully",
+  "data": {
+    "messageTypeIdentifier": "0210",
+    "primaryAccountNumber": "2229382591029288",
+    "processingCode": "011000",
+    "transactionAmount": "000000100000",
+    "transmissionDateAndTime": "0729115051",
+    "systemTraceAuditNumber": "100184",
+    "localTransactionTime": "115051",
+    "localTransactionDate": "0729",
+    "captureDate": "0729",
+    "deliveryChannelCode": "6021",
+    "acquiringInstitutionIdentificationCode": "99100000777",
+    "track2Data": "2229382591029288=3004221702",
+    "retrievalReferenceNumber": "100000000183",
+    "cardAcceptorTerminalIdentification": "FINNET0000000001",
+    "currencyCodeTransaction": "360",
+    "integratedCircuitCardSystemRelatedData": "91063D92E738B1733E3030",
+    "terminalData": "FINNET 00001",
+    "settlementDate": "0730",
+    "authorizationIdentificationResponse": "886717",
+    "issuerInstitutionIdentificationCode": "10000000009",
+    "accountIdentificationCode1": "90213912983111120",
+    "screen": "DATE : 11:51:02                                   |TIME : 115102                                     |MERCHANT ID : FINNET0000000001                    |INVOICE NO : 100184                               ||TARIK TUNAI                                       |NO. KARTU : 222938______9288                      |NO. RESI : 100000000183                           |TOTAL : RP.1,000,000.00                           ||              NO SIGNATURE REQUIRED               |                  PIN VERIFIED                   ||RESI INI  SEBAGAI BUKTI PEMBAYARAN YANG SAH    |       HARAP DISIMPAN, BIAYA/FEE TRANSAKSI        |          MENGIKUTI ATURAN YANG BERLAKU           ||                   TERIMA KASIH                   |"
+  }
+}

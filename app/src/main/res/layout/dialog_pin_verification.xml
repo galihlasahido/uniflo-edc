@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_lock"
+        android:tint="@color/colorPrimary"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter PIN"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_pin_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please enter your 6-digit PIN"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- PIN Input -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp">
+
+        <EditText
+            android:id="@+id/et_pin_1"
+            android:layout_width="40dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/pin_input_background"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:textColor="@color/text_primary"/>
+
+        <EditText
+            android:id="@+id/et_pin_2"
+            android:layout_width="40dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/pin_input_background"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:textColor="@color/text_primary"/>
+
+        <EditText
+            android:id="@+id/et_pin_3"
+            android:layout_width="40dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/pin_input_background"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:textColor="@color/text_primary"/>
+
+        <EditText
+            android:id="@+id/et_pin_4"
+            android:layout_width="40dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/pin_input_background"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:textColor="@color/text_primary"/>
+
+        <EditText
+            android:id="@+id/et_pin_5"
+            android:layout_width="40dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/pin_input_background"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:textColor="@color/text_primary"/>
+
+        <EditText
+            android:id="@+id/et_pin_6"
+            android:layout_width="40dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/pin_input_background"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textSize="18sp"
+            android:textColor="@color/text_primary"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Incorrect PIN. Please try again."
+        android:textColor="@color/colorDanger"
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/SecondaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="Cancel"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_verify"
+            style="@style/PrimaryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Verify"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="id.uniflo.uniedc">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".UnifloEDCApplication"
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
+        android:enabled="true"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:targetApi="23">
+
+        <!-- UI Activities -->
+        <activity
+            android:name="id.uniflo.uniedc.ui.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="id.uniflo.uniedc.ui.BasLoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.DashboardModernActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TransferActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TransferActivityEnhanced"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.WithdrawActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.PurchaseActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.PurchaseActivityEnhanced"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BalanceInquiryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BalanceInquiryActivityBasic"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BalanceInquiryResultActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BasCreatePinActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BasChangePinActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BasVerifyPinActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BasCashWithdrawalActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.PrinterTestActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.PinVerificationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.SaleResultActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TransactionSuccessActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BasHomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.DeviceInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.NetworkSettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.PrinterSettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.SecuritySettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TransactionLimitsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TerminalConfigActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.PaymentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.AppInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BasSwipeCardActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BasCardReaderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.SalesModernActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BalanceInquiryModernActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.CashWithdrawalModernActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TransferModernActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.CreatePinModernActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.ChangePinModernActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.VerifyPinModernActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.CardReaderActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!-- Add TEST intent filter to launch directly -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="id.uniflo.uniedc.ui.AidSettingsActivity"
+            android:label="AID Settings"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.SalesPinActivity"
+            android:label="PIN Pembayaran"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

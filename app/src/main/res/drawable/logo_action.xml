@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="76dp"
+    android:viewportWidth="200"
+    android:viewportHeight="76">
+    
+    <!-- AcTion text -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 20,45 L 30,20 L 40,20 L 30,45 L 25,45 L 15,20 L 25,20 Z M 25,45 L 35,45"/>
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 50,35 Q 50,45 60,45 Q 70,45 70,35 Q 70,25 60,25 Q 50,25 50,35 M 60,20 Q 75,20 75,35 Q 75,50 60,50 Q 45,50 45,35 Q 45,20 60,20"/>
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 85,25 L 85,45 L 90,45 L 90,25 M 80,25 L 95,25 M 88,20 L 88,50"/>
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 105,25 L 105,45 M 105,20 L 105,22 M 105,22 Q 105,20 107,20 M 107,20 L 107,22"/>
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 125,25 Q 115,25 115,35 Q 115,45 125,45 Q 135,45 135,35 Q 135,25 125,25 M 125,20 Q 140,20 140,35 Q 140,50 125,50 Q 110,50 110,35 Q 110,20 125,20"/>
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 150,25 L 150,45 L 155,45 L 155,35 Q 155,25 165,25 Q 175,25 175,35 L 175,45 L 180,45 L 180,35 Q 180,20 165,20 Q 150,20 150,35"/>
+    
+    <!-- Orange Circle with location pin -->
+    <circle
+        cx="155"
+        cy="30"
+        r="10"
+        android:fillColor="#FF9800"/>
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 155,25 Q 150,25 150,28 Q 150,32 155,35 Q 160,32 160,28 Q 160,25 155,25 M 155,27 Q 157,27 157,28.5 Q 157,30 155,30 Q 153,30 153,28.5 Q 153,27 155,27"/>
+</vector>

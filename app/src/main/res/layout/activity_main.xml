@@ -1,0 +1,194 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ukey_body"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/ukey_header"
+        layout="@layout/ukey_view_header" >
+    </include>
+
+    <ScrollView
+        android:id="@+id/ukey_content_body"
+        style="@style/ukey_content_body"
+        android:layout_below="@+id/ukey_header" >
+
+        <LinearLayout
+            android:id="@+id/ukey_content"
+            style="@style/ukey_content" >
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="10dp"
+                android:text="Function Test" />
+
+            <RelativeLayout
+                android:id="@+id/Led"
+                style="@style/ukey_listitem_top" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Led" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ring_light"
+                style="@style/ukey_listitem_top" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Ring Light" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Buzzer"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Buzzer" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Psam"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Psam" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Printer"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Printer" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Device"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Device" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Crypto"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Crypto" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Mag_card"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Mag card" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Ic_card"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Ic card" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Nfc_card"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Nfc card" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Memory_card"
+                style="@style/ukey_listitem_middle" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Memory card" />
+
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/key_management"
+                style="@style/ukey_listitem_middle" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Key management" />
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/key_dukpt_demo"
+                style="@style/ukey_listitem_middle" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Dukpt" />
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/serial_port_demo"
+                style="@style/ukey_listitem_middle" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="Serial port" />
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+
+            
+			<RelativeLayout
+                android:id="@+id/btscreen_demo"
+                style="@style/ukey_listitem_bottom" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:text="BtScreen" />
+                <ImageView style="@style/ukey_listitem_chevron" />
+            </RelativeLayout>
+            
+            <RelativeLayout
+                style="@style/ukey_listitem_single"
+                android:layout_marginTop="20dp" >
+                <TextView
+                    android:id="@+id/function_return_result_tv"
+                    style="@style/ukey_listitem_multiple_text"
+                    android:text="Here is show testing information" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,221 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ukey_body"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include
+        android:id="@+id/ukey_header"
+        layout="@layout/ukey_view_header" >
+    </include>
+
+    <ScrollView
+        android:id="@+id/ukey_content_body"
+        style="@style/ukey_content_body"
+        android:layout_below="@+id/ukey_header" >
+
+        <LinearLayout
+            android:id="@+id/ukey_content"
+            style="@style/ukey_content" >
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="Initialize" />
+
+            <RelativeLayout
+                android:id="@+id/register"
+                style="@style/ukey_listitem_top" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Register by app ID" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/install_protect_key"
+                style="@style/ukey_listitem_bottom" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Install protect key" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="IPEK(3DES) demo" />
+
+            <RelativeLayout
+                android:id="@+id/rl_install_ipek"
+                style="@style/ukey_listitem_top"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Install ipek and test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_install_ipek_enc"
+                style="@style/ukey_listitem_middle" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Install ipek(enc) and test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_install_ipek_enc_dek_p"
+                style="@style/ukey_listitem_middle" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Install ipek(enc DEK-P) and test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_add_ksn"
+                style="@style/ukey_listitem_bottom" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Add KSN" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="MK demo" />
+
+            <RelativeLayout
+                android:id="@+id/rl_install_mk"
+                style="@style/ukey_listitem_top" >
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install MK and test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_install_mk_enc"
+                style="@style/ukey_listitem_middle" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install MK(enc) and test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_install_dek"
+                style="@style/ukey_listitem_middle" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install DEK and test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_install_pek"
+                style="@style/ukey_listitem_middle" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install PEK and test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_install_mek"
+                style="@style/ukey_listitem_bottom" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install MEK and test" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="FIX Key" />
+            <RelativeLayout
+                android:id="@+id/rl_install_fk"
+                style="@style/ukey_listitem_top" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install fix key and test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_install_fk_enc"
+                style="@style/ukey_listitem_bottom" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install fix key(enc) and test" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="IPEK(AES_256) demo" />
+
+            <RelativeLayout
+                android:id="@+id/rl_install_ipek_aes"
+                style="@style/ukey_listitem_single"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Install ipek(AES_256) and test" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="Install KBPK/TR31" />
+            <RelativeLayout
+                android:id="@+id/rl_install_tr31"
+                style="@style/ukey_listitem_single" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install Tr31" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="RSA Key" />
+
+            <RelativeLayout
+                android:id="@+id/rl_generate_rsa"
+                style="@style/ukey_listitem_top" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="install RSA key and test" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_rsa_sign"
+                style="@style/ukey_listitem_bottom" >
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="RSA Sign And Verify test" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/ukey_listitem_single"
+                android:layout_marginTop="20dp" >
+
+                <TextView
+                    android:id="@+id/function_return_result_tv"
+                    style="@style/ukey_listitem_multiple_text"
+                    android:text="Here is show testing information" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

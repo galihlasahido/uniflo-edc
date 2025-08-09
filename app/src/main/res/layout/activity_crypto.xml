@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ukey_body"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include
+        android:id="@+id/ukey_header"
+        layout="@layout/ukey_view_header" >
+    </include>
+
+    <ScrollView
+        android:id="@+id/ukey_content_body"
+        style="@style/ukey_content_body"
+        android:layout_below="@+id/ukey_header" >
+
+        <LinearLayout
+            android:id="@+id/ukey_content"
+            style="@style/ukey_content" >
+
+            <RelativeLayout
+                style="@style/ukey_listitem_top"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Num(1-256)"
+                    android:textColor="@android:color/holo_blue_light"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/randomNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginRight="-16dp"
+                    android:maxLength="10"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/get_rand"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="get rand num" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/enum_key_index"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="enum key index" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/crypto_hash"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Hash" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/crypto_sym"
+                style="@style/ukey_listitem_bottom"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="symmetric algorithm" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/ukey_listitem_single"
+                android:layout_marginTop="20dp" >
+
+                <TextView
+                    android:id="@+id/function_return_result_tv"
+                    style="@style/ukey_listitem_multiple_text"
+                    android:text="Here is show testing information" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

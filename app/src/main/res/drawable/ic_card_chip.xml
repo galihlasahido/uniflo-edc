@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="71dp"
+    android:height="125dp"
+    android:viewportWidth="71"
+    android:viewportHeight="125">
+    
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M70.1272,0 L0,0 L0,124.533 L70.1272,124.533 L70.1272,0 Z"/>
+        
+    <!-- Add chip details -->
+    <path
+        android:fillColor="#B8860B"
+        android:pathData="M10,20 L60,20 L60,40 L10,40 Z"/>
+        
+    <path
+        android:fillColor="#B8860B"
+        android:pathData="M10,50 L60,50 L60,70 L10,70 Z"/>
+        
+    <path
+        android:fillColor="#B8860B"
+        android:pathData="M10,80 L60,80 L60,100 L10,100 Z"/>
+        
+</vector>

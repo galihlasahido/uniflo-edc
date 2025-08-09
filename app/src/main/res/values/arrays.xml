@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="device_type">
+        <item>0:All power sources.</item>
+        <item>1:LAN Power Supply.</item>
+        <item>2:XEC360 Power Supply.</item>
+        <item>3:Money box v6 Power Supply.</item>
+        <item>4:Money box v9  Power Supply.</item>
+        <item>5:Money box v12  Power Supply.</item>
+        <item>6:RJ11_1 Power Supply.</item>
+    </string-array>
+
+    <string-array name="device_state">
+        <item>0: Turn off the power</item>
+        <item>1: Turn on the power</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,172 @@
+<resources>
+    <string name="app_name">UniEDC</string>
+
+    <string name="wiz_ped_clear">Clear</string>
+    <string name="wiz_ped_cancel">Cancel</string>
+    <string name="wiz_ped_enter">Enter</string>
+
+    <string name="tape_lamp_type">TurnOnType:</string>
+    <string name="tape_lamp_lightness">Lightness:</string>
+    <string name="tape_lamp_lightness_step_gap">step/gap:</string>
+    <string name="tape_lamp_rgb_scope_hint">0–255</string>
+    <string name="tape_lamp_min_lightness">0–100</string>
+    <string name="tape_lamp_max_lightness">0–100</string>
+    <string name="tape_lamp_rgb_scope_set_hint">Input the value of RGB:</string>
+    <string-array name="tape_lamp_type_list">
+        <item>Tape lamp</item>
+        <item>Breath lamp</item>
+        <item>Marquee lamp</item>
+    </string-array>
+
+
+    <!-- Device Activity -->
+    <string name="Device_View">Device View</string>
+    
+    <!-- Material Design -->
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    
+    <!-- Font Awesome Icons -->
+    <string name="fa_home" translatable="false">\uf015</string>
+    <string name="fa_credit_card" translatable="false">\uf09d</string>
+    <string name="fa_exchange" translatable="false">\uf0ec</string>
+    <string name="fa_money_bill" translatable="false">\uf0d6</string>
+    <string name="fa_times_circle" translatable="false">\uf057</string>
+    <string name="fa_check_square" translatable="false">\uf14a</string>
+    <string name="fa_sign_out" translatable="false">\uf08b</string>
+    <string name="fa_cog" translatable="false">\uf013</string>
+    <string name="fa_wallet" translatable="false">\uf555</string>
+    <string name="fa_shopping_cart" translatable="false">\uf07a</string>
+    <string name="fa_ban" translatable="false">\uf05e</string>
+    <string name="fa_undo" translatable="false">\uf0e2</string>
+    <string name="fa_check_circle" translatable="false">\uf058</string>
+    <string name="fa_lock" translatable="false">\uf023</string>
+    <string name="fa_chart" translatable="false">\uf080</string>
+    <string name="enter_pin">Enter PIN</string>
+    <string name="please_enter_your_6_digit_pin">Please enter your 6 digit PIN</string>
+    <string name="toko">Toko</string>
+    <string name="check_balance">Check Balance</string>
+    <string name="insert_tap_swipe_card">Insert/Tap/Swipe card</string>
+    <string name="pay_with_card">Pay with Card</string>
+    <string name="all_transactions_are_secure_and_encrypted">All transactions are secure and encrypted</string>
+    <string name="more">More</string>
+    <string name="login">LOGIN</string>
+    
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="success">Success</string>
+    <string name="failed">Failed</string>
+    <string name="error">Error</string>
+    <string name="loading">Loading...</string>
+    <string name="please_wait">Please wait...</string>
+    
+    <!-- Login -->
+    <string name="user_id">User ID</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login_failed">Login failed. Please try again.</string>
+    <string name="welcome_back">Welcome Back</string>
+    
+    <!-- Home Menu -->
+    <string name="menu_sales">Sales</string>
+    <string name="menu_balance_inquiry">Balance Inquiry</string>
+    <string name="menu_create_pin">Create PIN</string>
+    <string name="menu_change_pin">Change PIN</string>
+    <string name="menu_verify_pin">Verify PIN</string>
+    <string name="menu_cash_withdrawal">Cash Withdrawal</string>
+    <string name="menu_transfer">Transfer On Us</string>
+    <string name="menu_settings">Settings</string>
+    
+    <!-- PIN Pages -->
+    <string name="create_pin_title">Create New PIN</string>
+    <string name="create_pin_desc">Enter your 6-digit PIN</string>
+    <string name="confirm_pin_desc">Confirm your PIN</string>
+    <string name="enter_current_pin">Enter current PIN</string>
+    <string name="enter_new_pin">Enter new PIN</string>
+    <string name="confirm_new_pin">Confirm new PIN</string>
+    <string name="pin_not_match">PINs do not match</string>
+    <string name="pin_created_success">PIN created successfully</string>
+    <string name="pin_changed_success">PIN changed successfully</string>
+    <string name="incorrect_pin">Incorrect PIN</string>
+    <string name="pin_verification_success">PIN verification successful</string>
+    <string name="attempts_remaining">%d attempts remaining</string>
+    
+    <!-- Card -->
+    <string name="insert_card">Insert/Swipe Card</string>
+    <string name="card_instruction">Please insert donor card</string>
+    <string name="card_detected">Card detected!</string>
+    <string name="processing_card">Processing card...</string>
+    <string name="card_read_success">Card read successfully</string>
+    <string name="card_read_failed">Failed to read card</string>
+    <string name="card_removed">Card removed</string>
+    
+    <!-- Cash Withdrawal -->
+    <string name="cash_withdrawal_title">Cash Withdrawal</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="select_amount">Select Amount</string>
+    <string name="amount">Amount</string>
+    <string name="min_amount">Minimum: Rp 50,000</string>
+    <string name="max_amount">Maximum: Rp 5,000,000</string>
+    <string name="invalid_amount">Invalid amount</string>
+    <string name="amount_multiple_50k">Amount must be multiple of Rp 50,000</string>
+    <string name="insufficient_balance">Insufficient balance</string>
+    <string name="withdrawal_success">Withdrawal successful</string>
+    <string name="withdrawal_failed">Withdrawal failed</string>
+    
+    <!-- Transfer -->
+    <string name="transfer_title">Transfer On Us</string>
+    <string name="select_bank">Select Bank</string>
+    <string name="destination_account">Destination Account</string>
+    <string name="account_name">Recipient Name</string>
+    <string name="transfer_amount">Transfer Amount</string>
+    <string name="transfer_note">Transfer Note</string>
+    <string name="transfer_fee">Admin Fee</string>
+    <string name="total_amount">Total</string>
+    <string name="transfer_success">Transfer successful</string>
+    <string name="transfer_failed">Transfer failed</string>
+    <string name="confirm_transfer">Confirm Transfer</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="language">Language</string>
+    <string name="printer">Printer</string>
+    <string name="network">Network</string>
+    <string name="display">Display</string>
+    <string name="sound">Sound</string>
+    <string name="about">About</string>
+    <string name="device_info">Device Information</string>
+    <string name="terminal_config">Terminal Configuration</string>
+    <string name="security_settings">Security Settings</string>
+    <string name="transaction_limits">Transaction Limits</string>
+    
+    <!-- Transaction Status -->
+    <string name="transaction_processing">Processing transaction...</string>
+    <string name="transaction_approved">Transaction approved</string>
+    <string name="transaction_declined">Transaction declined</string>
+    <string name="transaction_timeout">Transaction timeout</string>
+    <string name="transaction_cancelled">Transaction cancelled</string>
+    
+    <!-- Error Messages -->
+    <string name="sdk_not_initialized">SDK not initialized</string>
+    <string name="card_reader_not_available">Card reader not available</string>
+    <string name="card_reader_error">Card reader error</string>
+    <string name="network_error">Network error</string>
+    <string name="timeout_error">Timeout error</string>
+    <string name="unknown_error">Unknown error</string>
+    
+    <!-- Receipt -->
+    <string name="print_receipt">Print Receipt</string>
+    <string name="receipt_copy">Receipt Copy</string>
+    <string name="merchant_copy">Merchant Copy</string>
+    <string name="customer_copy">Customer Copy</string>
+    
+    <!-- Status -->
+    <string name="status">Status</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="kernel_connected">Kernel connected</string>
+</resources>

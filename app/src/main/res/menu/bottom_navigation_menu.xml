@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/nav_beranda"
+        android:icon="@drawable/ic_home"
+        android:title="Beranda"/>
+    
+    <item
+        android:id="@+id/nav_transaksi"
+        android:icon="@drawable/ic_receipt"
+        android:title="Transaksi"/>
+    
+    <!-- Placeholder for center FAB -->
+    <item
+        android:id="@+id/nav_placeholder"
+        android:title=""
+        android:enabled="false"/>
+    
+    <item
+        android:id="@+id/nav_notifikasi"
+        android:icon="@drawable/ic_notifications"
+        android:title="Notifikasi"/>
+    
+    <item
+        android:id="@+id/nav_profil"
+        android:icon="@drawable/ic_person"
+        android:title="Profil"/>
+    
+</menu>

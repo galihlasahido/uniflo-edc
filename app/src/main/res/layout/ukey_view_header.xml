@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ukey_navbar" >
+
+    <Button
+        android:id="@+id/ukey_navbar_left_btn"
+        style="@style/ukey_navbar_left_btn"
+        android:text="Back" >
+    </Button>
+
+    <TextView
+        android:id="@+id/ukey_navbar_title"
+        style="@style/ukey_navbar_title"
+        android:text="test" >
+    </TextView>
+
+    <Button
+        android:id="@+id/ukey_navbar_right_btn"
+        style="@style/ukey_navbar_right_btn"
+        android:text="Clear Log" >
+    </Button>
+
+</RelativeLayout>

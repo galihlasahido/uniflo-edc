@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ukey_body"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include
+        android:id="@+id/ukey_header"
+        layout="@layout/ukey_view_header" >
+    </include>
+
+    <ScrollView
+        android:id="@+id/ukey_content_body"
+        style="@style/ukey_content_body"
+        android:layout_below="@+id/ukey_header" >
+
+        <LinearLayout
+            android:id="@+id/ukey_content"
+            style="@style/ukey_content" >
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/btnPsam1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PSAM1"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/btnbtnPsam2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PSAM2"/>
+            </RadioGroup>
+
+            <RelativeLayout
+                android:id="@+id/psam_card_demo"
+                style="@style/ukey_listitem_top"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="psam card demo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/psam_ic_card_demo"
+                style="@style/ukey_listitem_bottom"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="psam card and ic card demo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/ukey_listitem_single"
+                android:layout_marginTop="20dp" >
+
+                <TextView
+                    android:id="@+id/function_return_result_tv"
+                    style="@style/ukey_listitem_multiple_text"
+                    android:text="Here is show testing information" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

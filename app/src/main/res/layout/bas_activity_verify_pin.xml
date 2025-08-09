@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary">
+    
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+            
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Verify PIN"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginLeft="16dp"/>
+    </LinearLayout>
+    
+    <!-- Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+        
+        <!-- Icon -->
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_pin_verify"
+            android:tint="@color/colorPrimary"
+            android:layout_marginBottom="32dp"/>
+        
+        <!-- Instructions -->
+        <TextView
+            android:id="@+id/instruction_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter your 6-digit PIN to verify"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"/>
+        
+        <!-- PIN Entry -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+            
+            <EditText
+                android:id="@+id/pin_box_1"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/pin_box_background"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:layout_margin="4dp"/>
+                
+            <EditText
+                android:id="@+id/pin_box_2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/pin_box_background"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:layout_margin="4dp"/>
+                
+            <EditText
+                android:id="@+id/pin_box_3"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/pin_box_background"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:layout_margin="4dp"/>
+                
+            <EditText
+                android:id="@+id/pin_box_4"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/pin_box_background"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:layout_margin="4dp"/>
+                
+            <EditText
+                android:id="@+id/pin_box_5"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/pin_box_background"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:layout_margin="4dp"/>
+                
+            <EditText
+                android:id="@+id/pin_box_6"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/pin_box_background"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:layout_margin="4dp"/>
+        </LinearLayout>
+        
+        <!-- Error Message -->
+        <TextView
+            android:id="@+id/error_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDanger"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone"/>
+        
+        <!-- Submit Button -->
+        <FrameLayout
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/button_primary"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginTop="16dp">
+            
+            <TextView
+                android:id="@+id/btn_submit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verify"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-bold"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        
+    </LinearLayout>
+    
+</RelativeLayout>

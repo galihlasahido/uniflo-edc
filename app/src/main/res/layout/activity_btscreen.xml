@@ -1,0 +1,173 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ukey_body"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include
+        android:id="@+id/ukey_header"
+        layout="@layout/ukey_view_header" >
+    </include>
+
+    <ScrollView
+        android:id="@+id/ukey_content_body"
+        style="@style/ukey_content_body"
+        android:layout_below="@+id/ukey_header" >
+
+        <LinearLayout
+            android:id="@+id/ukey_content"
+            style="@style/ukey_content" >
+
+            <RelativeLayout
+                android:id="@+id/displayamount"
+                style="@style/ukey_listitem_top"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:layout_centerVertical="true"
+                    android:focusable="false"
+                    android:text="displayAmount" />
+
+                <EditText
+                    android:id="@+id/amount"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginRight="-16dp"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:hint="amount"
+                    android:textSize="13sp" />
+                <EditText
+                    android:id="@+id/balance"
+                    android:hint="balance"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:inputType="number"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginRight="-16dp"
+                    android:maxLength="10"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/scanBluetoohDock"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="scanBluetoohDock" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/connectBlueTooth"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:layout_centerVertical="true"
+                    android:focusable="false"
+                    android:text="connectBlueTooth" />
+                <Spinner
+                    android:id="@+id/mac_id"
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginRight="-16dp"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:hint="F1:EC:38:D8:11:03"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/disconnectBluetooth"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="disconnectBluetooth" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/getID"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="getID" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setBacklight"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="setBacklight" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:textAlignment="viewEnd"
+                    android:layout_marginLeft="120dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/upGrade"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="upGrade" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/restorationScreen"
+                style="@style/ukey_listitem_bottom"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="restorationScreen" />
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="120dp"
+                    android:textAlignment="viewEnd" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                style="@style/ukey_listitem_single"
+                android:layout_marginTop="20dp" >
+
+                <TextView
+                    android:id="@+id/function_return_result_tv"
+                    style="@style/ukey_listitem_multiple_text"
+                    android:text="Here is show testing information" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

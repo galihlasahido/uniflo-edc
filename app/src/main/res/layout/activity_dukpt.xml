@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ukey_body"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/ukey_header"
+        layout="@layout/ukey_view_header" />
+
+    <ScrollView
+        android:id="@+id/ukey_content_body"
+        style="@style/ukey_content_body"
+        android:layout_below="@+id/ukey_header">
+
+        <LinearLayout
+            android:id="@+id/ukey_content"
+            style="@style/ukey_content">
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="Initialize" />
+
+            <RelativeLayout
+                android:id="@+id/register"
+                style="@style/ukey_listitem_top">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Register by app ID" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_install_ipek"
+                style="@style/ukey_listitem_bottom"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Install IPEK" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/ukey_listitem_title"
+                android:layout_marginTop="15dp"
+                android:text="IPEK(3DES) demo" />
+
+            <RelativeLayout
+                android:id="@+id/rl_encrypt_data"
+                style="@style/ukey_listitem_top"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Encrypt Data" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_calculate_pin"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Calculate PIN" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_calculate_mac"
+                style="@style/ukey_listitem_middle"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Calculate MAC" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_add_ksn"
+                style="@style/ukey_listitem_bottom">
+
+                <TextView
+                    style="@style/ukey_listitem_left_text"
+                    android:focusable="false"
+                    android:text="Add KSN" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/ukey_listitem_single"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/function_return_result_tv"
+                    style="@style/ukey_listitem_multiple_text"
+                    android:text="Here is show testing information" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

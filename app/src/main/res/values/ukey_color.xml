@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="ukey_rounded_container_border">#ffBBBBBB</color>
+	<color name="ukey_base_start_color_default">#FFFFFF</color>
+    <color name="ukey_base_end_color_default">#FFFFFF</color>
+	<color name="ukey_base_start_color_pressed">#ff058BF5</color>
+    <color name="ukey_base_end_color_pressed">#ff015EE6</color>
+    <color name="ukey_text_color_default">#333333</color>
+    <color name="ukey_text_color_pressed">#ffffff</color>
+    <color name="ukey_transparent_bg">#00000000</color>
+</resources>

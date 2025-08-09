@@ -1,0 +1,57 @@
+#SVN
+.svn
+
+# Mac OS
+.DS_Store
+
+# Gradle
+.gradle/
+build/
+
+# Java
+*.class
+
+# IntelliJ
+*.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Android Studio
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
+
+# Keystore files
+#*.jks
+#*.keystore
+
+# Android Profiling
+*.hprof
+
+# Proguard
+proguard/
+
+# Local configuration file
+local.properties
+
+# ART/Dalvik VM files
+*.dex
+
+# Log Files
+*.log
+
+# Generated files
+bin/
+gen/
+out/
+release/
+
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
