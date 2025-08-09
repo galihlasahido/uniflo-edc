@@ -160,15 +160,16 @@ public class PrinterUtil {
     }
     
     /**
-     * Print raw receipt content directly (from JSON or other sources)
+     * Print raw receipt content directly with custom font size
+     * @param fontSize Font size (16=tiny, 20=small, 24=medium, 28=normal, 32=large)
      */
-    public static void printRawReceipt(Context context, String receiptContent) {
+    public static void printRawReceipt(Context context, String receiptContent, int fontSize) {
         if (receiptContent == null || receiptContent.trim().isEmpty()) {
             Toast.makeText(context, "No receipt content to print", Toast.LENGTH_SHORT).show();
             return;
         }
         
-        Log.d(TAG, "Starting raw receipt print");
+        Log.d(TAG, "Starting raw receipt print with font size: " + fontSize);
         
         // Connect to service and print
         ServiceManager.bindPosServer(context, new OnServiceConnectCallback() {
@@ -202,6 +203,17 @@ public class PrinterUtil {
                     if (ret != ErrCode.ERR_SUCCESS) {
                         Toast.makeText(context, "Failed to set gray: " + String.format("0x%x", ret), Toast.LENGTH_SHORT).show();
                         return;
+                    }
+                    
+                    // Set font size for receipts
+                    android.os.Bundle fontBundle = new android.os.Bundle();
+                    fontBundle.putString("font", "DEFAULT");
+                    fontBundle.putInt("style", 0);
+                    fontBundle.putInt("size", fontSize); // Use provided font size
+                    ret = printer.setFont(fontBundle);
+                    if (ret != ErrCode.ERR_SUCCESS) {
+                        Log.w(TAG, "Failed to set font size: " + String.format("0x%x", ret));
+                        // Continue even if font setting fails
                     }
                     
                     // Check paper status
@@ -286,11 +298,19 @@ public class PrinterUtil {
     }
     
     /**
+     * Print raw receipt content directly (from JSON or other sources) with default smaller font
+     */
+    public static void printRawReceipt(Context context, String receiptContent) {
+        // Use smaller font size (20) by default for sales receipts
+        printRawReceipt(context, receiptContent, 20);
+    }
+    
+    /**
      * Core print function using actual Feitian SDK
      */
     private static void printReceipt(Context context, String receiptData) {
-        // This method now delegates to printRawReceipt for consistency
-        printRawReceipt(context, receiptData);
+        // This method now delegates to printRawReceipt with smaller font for consistency
+        printRawReceipt(context, receiptData, 20);
     }
     
     /**
