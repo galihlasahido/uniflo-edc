@@ -234,11 +234,49 @@ public class SecureSettingsDatabaseHelper extends SQLiteOpenHelper {
     }
     
     public SQLiteDatabase getWritableDatabase() {
-        return super.getWritableDatabase(databaseKey);
+        try {
+            return super.getWritableDatabase(databaseKey);
+        } catch (net.sqlcipher.database.SQLiteException e) {
+            // Handle corrupted database
+            if (e.getMessage() != null && e.getMessage().contains("file is not a database")) {
+                android.util.Log.w("SecureDB", "Database corrupted, attempting recovery: " + e.getMessage());
+                return recoverDatabase();
+            }
+            throw e;
+        }
     }
     
     public SQLiteDatabase getReadableDatabase() {
-        return super.getReadableDatabase(databaseKey);
+        try {
+            return super.getReadableDatabase(databaseKey);
+        } catch (net.sqlcipher.database.SQLiteException e) {
+            // Handle corrupted database
+            if (e.getMessage() != null && e.getMessage().contains("file is not a database")) {
+                android.util.Log.w("SecureDB", "Database corrupted, attempting recovery: " + e.getMessage());
+                return recoverDatabase();
+            }
+            throw e;
+        }
+    }
+    
+    private SQLiteDatabase recoverDatabase() {
+        try {
+            // Close any existing connections
+            close();
+            
+            // Delete corrupted database file
+            context.deleteDatabase(DATABASE_NAME);
+            android.util.Log.i("SecureDB", "Corrupted database deleted");
+            
+            // Create new database
+            SQLiteDatabase db = super.getWritableDatabase(databaseKey);
+            android.util.Log.i("SecureDB", "New database created successfully");
+            
+            return db;
+        } catch (Exception e) {
+            android.util.Log.e("SecureDB", "Failed to recover database: " + e.getMessage());
+            throw new RuntimeException("Unable to recover database", e);
+        }
     }
     
     private void insertDefaultValues(SQLiteDatabase db) {
