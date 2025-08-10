@@ -145,7 +145,7 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_fa_exchange"
+                            android:src="@drawable/ic_transfer_bank"
                             android:tint="@color/white"/>
                     </LinearLayout>
 
@@ -174,14 +174,14 @@
                     <LinearLayout
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/circle_success"
+                        android:background="@drawable/circle_warning"
                         android:gravity="center"
                         android:layout_marginBottom="8dp">
 
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_fa_money_bill"
+                            android:src="@drawable/ic_tarik_tunai"
                             android:tint="@color/white"/>
                     </LinearLayout>
 
@@ -210,14 +210,14 @@
                     <LinearLayout
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/circle_info"
+                        android:background="@drawable/circle_success"
                         android:gravity="center"
                         android:layout_marginBottom="8dp">
 
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_fa_shopping_cart"
+                            android:src="@drawable/ic_cart"
                             app:tint="@color/white" />
                     </LinearLayout>
 
@@ -246,14 +246,14 @@
                     <LinearLayout
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/circle_warning"
+                        android:background="@drawable/circle_info"
                         android:gravity="center"
                         android:layout_marginBottom="8dp">
 
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_fa_wallet"
+                            android:src="@drawable/ic_wallet_balance"
                             android:tint="@color/white"/>
                     </LinearLayout>
 
@@ -289,7 +289,7 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_fa_cog"
+                            android:src="@drawable/ic_settings"
                             android:tint="@color/white"/>
                     </LinearLayout>
 
@@ -325,7 +325,7 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_fa_sign_out"
+                            android:src="@drawable/ic_logout"
                             android:tint="@color/white"/>
                     </LinearLayout>
 
