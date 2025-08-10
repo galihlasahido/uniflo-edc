@@ -48,19 +48,19 @@ public class BasHomeActivity extends Activity {
     }
     
     private void setupMenuIcons() {
-        // Transaction menu items with gradients
-        setGridMenuItem(menuSales, "Sales", R.drawable.ic_cart, R.drawable.menu_sales);
-        setGridMenuItem(menuBalanceInquiry, "Balance\nInquiry", R.drawable.ic_balance, R.drawable.menu_balance);
-        setGridMenuItem(menuTarikTunai, getString(R.string.menu_cash_withdrawal), R.drawable.ic_tarik_tunai, R.drawable.menu_withdrawal);
-        setGridMenuItem(menuTransferOnUs, getString(R.string.menu_transfer), R.drawable.ic_transfer_bank, R.drawable.menu_transfer_onus);
+        // Transaction menu items with gradients - using better icons and backgrounds
+        setGridMenuItem(menuSales, "Sales", R.drawable.ic_cart, R.drawable.bas_menu_gradient_3); // Green gradient
+        setGridMenuItem(menuBalanceInquiry, "Balance\nInquiry", R.drawable.ic_wallet_balance, R.drawable.bas_menu_gradient_2); // Blue gradient
+        setGridMenuItem(menuTarikTunai, getString(R.string.menu_cash_withdrawal), R.drawable.ic_tarik_tunai, R.drawable.bas_menu_gradient_5); // Orange gradient
+        setGridMenuItem(menuTransferOnUs, getString(R.string.menu_transfer), R.drawable.ic_transfer_bank, R.drawable.bas_menu_gradient_1); // Primary gradient
         
         // PIN Management with gradients
-        setGridMenuItem(menuCreatePin, getString(R.string.menu_create_pin), R.drawable.ic_pin_create, R.drawable.menu_create_pin);
-        setGridMenuItem(menuChangePin, getString(R.string.menu_change_pin), R.drawable.ic_pin_change, R.drawable.menu_change_pins);
-        setGridMenuItem(menuVerificationPin, getString(R.string.menu_verify_pin), R.drawable.ic_pin_verify, R.drawable.menu_verification_pin);
+        setGridMenuItem(menuCreatePin, getString(R.string.menu_create_pin), R.drawable.ic_key, R.drawable.bas_menu_gradient_4); // Purple gradient
+        setGridMenuItem(menuChangePin, getString(R.string.menu_change_pin), R.drawable.ic_refresh, R.drawable.bas_menu_gradient_6); // Teal gradient
+        setGridMenuItem(menuVerificationPin, getString(R.string.menu_verify_pin), R.drawable.ic_check_circle, R.drawable.bas_menu_gradient_7); // Pink gradient
         
         // Settings with gradient
-        setGridMenuItem(menuSettings, getString(R.string.menu_settings), R.drawable.ic_settings, R.drawable.menu_settings);
+        setGridMenuItem(menuSettings, getString(R.string.menu_settings), R.drawable.ic_settings, R.drawable.bas_menu_gradient_8); // Gray gradient
     }
     
     private void setGridMenuItem(View menuItem, String title, int iconResId, int gradientResId) {
@@ -94,7 +94,7 @@ public class BasHomeActivity extends Activity {
         menuSales.setOnClickListener(v -> handleMenuClick("Sales"));
         menuBalanceInquiry.setOnClickListener(v -> handleMenuClick("Balance Inquiry"));
         menuTarikTunai.setOnClickListener(v -> handleMenuClick("Tarik Tunai"));
-        menuTransferOnUs.setOnClickListener(v -> handleMenuClick("Transfer On Us"));
+        menuTransferOnUs.setOnClickListener(v -> handleMenuClick("Transfer Off Us"));
         
         // PIN Management
         menuCreatePin.setOnClickListener(v -> handleMenuClick("Create PIN"));
@@ -130,8 +130,8 @@ public class BasHomeActivity extends Activity {
                 Intent withdrawalIntent = new Intent(this, CashWithdrawalModernActivity.class);
                 startActivity(withdrawalIntent);
                 break;
-            case "Transfer On Us":
-                // Navigate to modern transfer
+            case "Transfer Off Us":
+                // Navigate to modern transfer (now Transfer Off Us - inter-bank)
                 Intent transferIntent = new Intent(this, TransferModernActivity.class);
                 startActivity(transferIntent);
                 break;
