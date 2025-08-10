@@ -29,7 +29,7 @@ public class TransferModernActivity extends Activity {
     private Spinner spinnerDestinationBank;
     private EditText etAccountNumber, etAmount, etNotes;
     private Button btnVerifyAccount, btn100k, btn500k, btn1m, btnTransfer;
-    private EditText pin1, pin2, pin3, pin4, pin5, pin6;
+    // PIN input elements removed - using SalesPinActivity instead
     
     private boolean accountVerified = false;
     private String selectedBank = "";
@@ -49,39 +49,50 @@ public class TransferModernActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_modern);
         
+        // Get card data from previous verification activity
+        Intent intent = getIntent();
+        cardNumber = intent.getStringExtra("card_number");
+        boolean cardVerified = intent.getBooleanExtra("card_verified", false);
+        
+        if (!cardVerified || cardNumber == null || cardNumber.isEmpty()) {
+            Toast.makeText(this, "Error: Kartu tidak terverifikasi", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+        
         initViews();
         setupListeners();
         
-        // Launch card reader immediately
-        launchCardReader();
+        // Show card info without launching card reader again
+        showTransferInterface();
     }
     
     private void initViews() {
         backButton = findViewById(R.id.back_button);
         historyButton = findViewById(R.id.history_button);
         tvAmount = findViewById(R.id.tv_amount);
-        tvAccountName = findViewById(R.id.tv_account_name);
         
         spinnerDestinationBank = findViewById(R.id.spinner_destination_bank);
         etAccountNumber = findViewById(R.id.et_account_number);
         etAmount = findViewById(R.id.et_amount);
-        etNotes = findViewById(R.id.et_notes);
         
         // Setup bank spinner
         setupBankSpinner();
         
-        btnVerifyAccount = findViewById(R.id.btn_verify_account);
         btn100k = findViewById(R.id.btn_100k);
         btn500k = findViewById(R.id.btn_500k);
         btn1m = findViewById(R.id.btn_1m);
         btnTransfer = findViewById(R.id.btn_transfer);
         
-        pin1 = findViewById(R.id.pin_1);
-        pin2 = findViewById(R.id.pin_2);
-        pin3 = findViewById(R.id.pin_3);
-        pin4 = findViewById(R.id.pin_4);
-        pin5 = findViewById(R.id.pin_5);
-        pin6 = findViewById(R.id.pin_6);
+        // Optional elements - commented out as they don't exist in current layout
+        // tvAccountName = findViewById(R.id.tv_account_name);
+        // etNotes = findViewById(R.id.et_notes);
+        // btnVerifyAccount = findViewById(R.id.btn_verify_account);
+        tvAccountName = null;
+        etNotes = null;
+        btnVerifyAccount = null;
+        
+        // PIN elements removed - using SalesPinActivity instead
     }
     
     private void setupBankSpinner() {
@@ -141,7 +152,9 @@ public class TransferModernActivity extends Activity {
         });
         
         // Account verification
-        btnVerifyAccount.setOnClickListener(v -> verifyAccount());
+        if (btnVerifyAccount != null) {
+            btnVerifyAccount.setOnClickListener(v -> verifyAccount());
+        }
         
         etAccountNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,8 +166,12 @@ public class TransferModernActivity extends Activity {
             @Override
             public void afterTextChanged(Editable s) {
                 accountVerified = false;
-                tvAccountName.setText("-");
-                btnVerifyAccount.setVisibility(View.VISIBLE);
+                if (tvAccountName != null) {
+                    tvAccountName.setText("-");
+                }
+                if (btnVerifyAccount != null) {
+                    btnVerifyAccount.setVisibility(View.VISIBLE);
+                }
             }
         });
         
@@ -177,27 +194,13 @@ public class TransferModernActivity extends Activity {
         btn500k.setOnClickListener(v -> setAmount(500000));
         btn1m.setOnClickListener(v -> setAmount(1000000));
         
-        // PIN input
-        setupPinInput();
+        // PIN input removed - using SalesPinActivity instead
         
         // Transfer button
         btnTransfer.setOnClickListener(v -> processTransfer());
     }
     
-    private void setupPinInput() {
-        // Hide PIN inputs since we'll use SalesPinActivity
-        pin1.setVisibility(View.GONE);
-        pin2.setVisibility(View.GONE);
-        pin3.setVisibility(View.GONE);
-        pin4.setVisibility(View.GONE);
-        pin5.setVisibility(View.GONE);
-        pin6.setVisibility(View.GONE);
-        
-        View pinSection = findViewById(R.id.pin_section);
-        if (pinSection != null) {
-            pinSection.setVisibility(View.GONE);
-        }
-    }
+    // setupPinInput method removed - PIN functionality moved to SalesPinActivity
     
     private void verifyAccount() {
         // Check if bank is selected
@@ -219,19 +222,25 @@ public class TransferModernActivity extends Activity {
         }
         
         // Show loading
-        btnVerifyAccount.setEnabled(false);
-        btnVerifyAccount.setText("Memverifikasi...");
+        if (btnVerifyAccount != null) {
+            btnVerifyAccount.setEnabled(false);
+            btnVerifyAccount.setText("Memverifikasi...");
+        }
         
         // Simulate account verification
         handler.postDelayed(() -> {
             accountVerified = true;
             // Generate dummy name based on account number
             String name = generateAccountName(accountNumber);
-            tvAccountName.setText(name);
+            if (tvAccountName != null) {
+                tvAccountName.setText(name);
+            }
             
-            btnVerifyAccount.setEnabled(true);
-            btnVerifyAccount.setText("Terverifikasi ✓");
-            btnVerifyAccount.setVisibility(View.GONE);
+            if (btnVerifyAccount != null) {
+                btnVerifyAccount.setEnabled(true);
+                btnVerifyAccount.setText("Terverifikasi ✓");
+                btnVerifyAccount.setVisibility(View.GONE);
+            }
             
             Toast.makeText(this, "Rekening " + selectedBank + " terverifikasi", Toast.LENGTH_SHORT).show();
         }, 1500);
@@ -274,42 +283,24 @@ public class TransferModernActivity extends Activity {
         }
     }
     
-    private void launchCardReader() {
-        // Check if bank and account are ready first
-        if (selectedBank.isEmpty()) {
-            Toast.makeText(this, "Pilih bank tujuan terlebih dahulu", Toast.LENGTH_SHORT).show();
-            return;
+    private void showTransferInterface() {
+        // Transfer form is ready - card already verified
+        Toast.makeText(this, "Kartu terverifikasi: " + maskCardNumber(cardNumber), Toast.LENGTH_SHORT).show();
+    }
+    
+    private String maskCardNumber(String cardNumber) {
+        if (cardNumber != null && cardNumber.length() >= 16) {
+            String lastFour = cardNumber.substring(cardNumber.length() - 4);
+            return "**** **** **** " + lastFour;
         }
-        if (!accountVerified) {
-            Toast.makeText(this, "Verifikasi rekening tujuan terlebih dahulu", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        
-        Intent intent = new Intent(this, CardReaderActivity.class);
-        startActivityForResult(intent, REQUEST_CARD_READING);
+        return "**** **** **** ****";
     }
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         
-        if (requestCode == REQUEST_CARD_READING) {
-            if (resultCode == RESULT_OK) {
-                // Card reading successful
-                if (data != null) {
-                    cardNumber = data.getStringExtra(CardReaderActivity.EXTRA_CARD_NUMBER);
-                    // Card read successfully, now user can proceed with transfer
-                    Toast.makeText(this, "Kartu berhasil dibaca. Silakan lanjutkan transfer antar bank.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Gagal membaca data kartu", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            } else {
-                // Card reading failed or cancelled
-                Toast.makeText(this, "Pembacaan kartu dibatalkan", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        } else if (requestCode == REQUEST_PIN_ENTRY) {
+        if (requestCode == REQUEST_PIN_ENTRY) {
             if (resultCode == RESULT_OK) {
                 // PIN entered successfully
                 if (data != null) {
@@ -332,13 +323,7 @@ public class TransferModernActivity extends Activity {
             Toast.makeText(this, "Pilih bank tujuan terlebih dahulu", Toast.LENGTH_SHORT).show();
             return;
         }
-        
-        // Validate account
-        if (!accountVerified) {
-            Toast.makeText(this, "Verifikasi rekening terlebih dahulu", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        
+
         // Validate amount
         String amountStr = etAmount.getText().toString().trim();
         if (amountStr.isEmpty()) {
@@ -357,19 +342,24 @@ public class TransferModernActivity extends Activity {
             return;
         }
         
-        // Validate card
+        // Validate card (should not happen since card is pre-verified)
         if (cardNumber.isEmpty()) {
-            Toast.makeText(this, "Silakan masukkan kartu terlebih dahulu", Toast.LENGTH_SHORT).show();
-            launchCardReader();
+            Toast.makeText(this, "Error: Kartu tidak terverifikasi", Toast.LENGTH_SHORT).show();
+            finish();
             return;
         }
         
-        // Launch PIN entry using SalesPinActivity
-        Intent intent = new Intent(this, SalesPinActivity.class);
-        intent.putExtra(SalesPinActivity.EXTRA_CARD_NUMBER, cardNumber);
-        intent.putExtra(SalesPinActivity.EXTRA_AMOUNT, (long)transferAmount);
-        intent.putExtra(SalesPinActivity.EXTRA_TRANSACTION_TYPE, "transfer");
-        startActivityForResult(intent, REQUEST_PIN_ENTRY);
+        // Navigate to transfer validation page
+        Intent intent = new Intent(this, TransferValidationActivity.class);
+        intent.putExtra(TransferValidationActivity.EXTRA_CARD_NUMBER, cardNumber);
+        intent.putExtra(TransferValidationActivity.EXTRA_BANK_NAME, selectedBank);
+        intent.putExtra(TransferValidationActivity.EXTRA_ACCOUNT_NUMBER, etAccountNumber.getText().toString().trim());
+        intent.putExtra(TransferValidationActivity.EXTRA_ACCOUNT_HOLDER_NAME, 
+                       tvAccountName != null ? tvAccountName.getText().toString() : generateAccountName(etAccountNumber.getText().toString().trim()));
+        intent.putExtra(TransferValidationActivity.EXTRA_AMOUNT, (long)transferAmount);
+        intent.putExtra(TransferValidationActivity.EXTRA_NOTES, 
+                       etNotes != null ? etNotes.getText().toString().trim() : "");
+        startActivity(intent);
     }
     
     private void executeTransfer() {
@@ -383,11 +373,11 @@ public class TransferModernActivity extends Activity {
         
         String message = "Transfer Antar Bank\n\n" +
                         "Bank Tujuan: " + selectedBank + "\n" +
-                        "Nama: " + tvAccountName.getText().toString() + "\n" +
+                        "Nama: " + (tvAccountName != null ? tvAccountName.getText().toString() : "Unknown") + "\n" +
                         "Rekening: " + etAccountNumber.getText().toString() + "\n\n" +
                         "Jumlah: " + formattedAmount;
         
-        if (!etNotes.getText().toString().trim().isEmpty()) {
+        if (etNotes != null && !etNotes.getText().toString().trim().isEmpty()) {
             message += "\n\nCatatan: " + etNotes.getText().toString();
         }
         
@@ -425,7 +415,7 @@ public class TransferModernActivity extends Activity {
             .setTitle("Transfer Antar Bank Berhasil")
             .setMessage("Transfer antar bank " + formattedAmount + " berhasil diproses.\n\n" +
                        "Bank: " + selectedBank + "\n" +
-                       "Penerima: " + tvAccountName.getText().toString() + "\n" +
+                       "Penerima: " + (tvAccountName != null ? tvAccountName.getText().toString() : "Unknown") + "\n" +
                        "No. Rekening: " + etAccountNumber.getText().toString() + "\n\n" +
                        "No. Referensi: TRF" + System.currentTimeMillis() + "\n" +
                        "Estimasi: 2-3 menit (real-time) atau 1 hari kerja (SKN)")
@@ -434,26 +424,5 @@ public class TransferModernActivity extends Activity {
             .show();
     }
     
-    private class PinTextWatcher implements TextWatcher {
-        private EditText currentBox;
-        private EditText nextBox;
-        
-        public PinTextWatcher(EditText currentBox, EditText nextBox) {
-            this.currentBox = currentBox;
-            this.nextBox = nextBox;
-        }
-        
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() == 1 && nextBox != null) {
-                nextBox.requestFocus();
-            }
-        }
-    }
+    // PinTextWatcher class removed - using SalesPinActivity instead
 }

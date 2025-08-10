@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
+import android.app.ProgressDialog;
 
 import id.uniflo.uniedc.R;
 // SDK imports removed for simplicity
@@ -21,7 +23,6 @@ public class BalanceInquiryModernActivity extends Activity {
     
     private ImageView backButton;
     private TextView tvBalance;
-    private TextView tvCardStatus;
     private LinearLayout pinSection;
     private LinearLayout transactionsSection;
     private LinearLayout transactionsList;
@@ -51,7 +52,6 @@ public class BalanceInquiryModernActivity extends Activity {
     private void initViews() {
         backButton = findViewById(R.id.back_button);
         tvBalance = findViewById(R.id.tv_balance);
-        tvCardStatus = findViewById(R.id.tv_card_status);
         pinSection = findViewById(R.id.pin_section);
         transactionsSection = findViewById(R.id.transactions_section);
         transactionsList = findViewById(R.id.transactions_list);
@@ -100,28 +100,25 @@ public class BalanceInquiryModernActivity extends Activity {
                     // Launch PIN entry
                     launchPinEntry();
                 } else {
-                    Toast.makeText(this, "Gagal membaca data kartu", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Toast.makeText(this, "Gagal membaca data kartu", Toast.LENGTH_LONG).show();
+                    // Wait 2 seconds before closing to let user read the message
+                    handler.postDelayed(() -> {
+                        finish();
+                    }, 2000);
                 }
             } else {
                 // Card reading failed or cancelled
-                Toast.makeText(this, "Pembacaan kartu dibatalkan", Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(this, "Pembacaan kartu dibatalkan", Toast.LENGTH_LONG).show();
+                // Wait 2 seconds before closing to let user read the message
+                handler.postDelayed(() -> {
+                    finish();
+                }, 2000);
             }
         } else if (requestCode == REQUEST_PIN_ENTRY) {
-            if (resultCode == RESULT_OK) {
-                // PIN entered successfully
-                if (data != null) {
-                    String pin = data.getStringExtra("pin_entered");
-                    // Process balance inquiry with PIN
-                    processBalanceInquiry(pin);
-                } else {
-                    Toast.makeText(this, "PIN tidak valid", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                // PIN entry cancelled
-                Toast.makeText(this, "PIN dibatalkan", Toast.LENGTH_SHORT).show();
-            }
+            // PIN entry is now handled directly in SalesPinActivity for balance inquiry
+            // This code is no longer used for balance inquiry flow
+            Log.d("BalanceInquiry", "PIN entry completed, activity finishing");
+            finish();
         }
     }
     
@@ -129,12 +126,14 @@ public class BalanceInquiryModernActivity extends Activity {
         Intent intent = new Intent(this, SalesPinActivity.class);
         intent.putExtra(SalesPinActivity.EXTRA_CARD_NUMBER, cardNumber);
         intent.putExtra(SalesPinActivity.EXTRA_TRANSACTION_TYPE, "balance_inquiry");
+        intent.putExtra(SalesPinActivity.EXTRA_PIN_TITLE, "Cek Saldo");
+        intent.putExtra(SalesPinActivity.EXTRA_PIN_SUBTITLE, "Masukkan PIN Kartu");
         startActivityForResult(intent, REQUEST_PIN_ENTRY);
     }
     
     private void showBalanceInquiryInterface() {
-        tvCardStatus.setText("Kartu dibaca: " + maskCardNumber(cardNumber));
-        tvCardStatus.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+        // Show card read success message
+        Toast.makeText(this, "Kartu dibaca: " + maskCardNumber(cardNumber), Toast.LENGTH_SHORT).show();
         
         // Hide PIN section since we're using SalesPinActivity
         pinSection.setVisibility(View.GONE);
@@ -145,16 +144,8 @@ public class BalanceInquiryModernActivity extends Activity {
     }
     
     private void processBalanceInquiry(String pin) {
-        // Show loading
-        tvCardStatus.setText("Memproses cek saldo...");
-        
-        // Simulate balance check
-        handler.postDelayed(() -> {
-            // Show balance inquiry interface
-            showBalanceInquiryInterface();
-            
-            Toast.makeText(this, "Saldo berhasil dicek", Toast.LENGTH_SHORT).show();
-        }, 2000);
+        // This method is no longer used - processing moved to SalesPinActivity
+        Log.d("BalanceInquiry", "processBalanceInquiry called but should not be used");
     }
     
     private void checkBalance() {

@@ -26,7 +26,6 @@ import id.uniflo.uniedc.database.SecureSettingsDAO;
 import id.uniflo.uniedc.database.TerminalConfig;
 import id.uniflo.uniedc.database.Transaction;
 import id.uniflo.uniedc.database.TransactionDAO;
-import id.uniflo.uniedc.ui.DashboardModernActivity;
 import id.uniflo.uniedc.ui.PrinterTestActivity;
 import id.uniflo.uniedc.sdk.SDKManager;
 import id.uniflo.uniedc.sdk.interfaces.IPrinter;
@@ -116,10 +115,10 @@ public class DashboardFragment extends Fragment {
             Toast.makeText(getContext(), "Mutasi clicked", Toast.LENGTH_SHORT).show();
         });
         
-        actionDisbursment.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), DashboardModernActivity.class);
-            startActivity(intent);
-        });
+//        actionDisbursment.setOnClickListener(v -> {
+//            Intent intent = new Intent(getContext(), DashboardModernActivity.class);
+//            startActivity(intent);
+//        });
         
         ivProfile.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Profile clicked", Toast.LENGTH_SHORT).show();

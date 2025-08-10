@@ -21,17 +21,21 @@
         android:theme="@style/AppTheme"
         tools:targetApi="23">
 
+        <!-- Splash Activity - Main Entry Point -->
+        <activity
+            android:name="id.uniflo.uniedc.ui.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
         <!-- UI Activities -->
         <activity
             android:name="id.uniflo.uniedc.ui.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="id.uniflo.uniedc.ui.BasLoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -157,13 +161,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="id.uniflo.uniedc.ui.CardReaderActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <!-- Add TEST intent filter to launch directly -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="id.uniflo.uniedc.ui.AidSettingsActivity"
             android:label="AID Settings"
@@ -172,6 +170,36 @@
         <activity
             android:name="id.uniflo.uniedc.ui.SalesPinActivity"
             android:label="PIN Pembayaran"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.BalanceResultActivity"
+            android:label="Saldo Anda"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.WithdrawalResultActivity"
+            android:label="Tarik Tunai"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TransferCardVerificationActivity"
+            android:label="Transfer Antar Bank"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TransferValidationActivity"
+            android:label="Konfirmasi Transfer"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.TransferSuccessActivity"
+            android:label="Transfer Berhasil"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name="id.uniflo.uniedc.ui.CreatePinCardVerificationActivity"
+            android:label="Buat PIN"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="false" />
 

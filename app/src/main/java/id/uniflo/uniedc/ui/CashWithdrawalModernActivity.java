@@ -30,7 +30,7 @@ public class CashWithdrawalModernActivity extends Activity {
     private Button btn50k, btn100k, btn200k, btn300k, btn500k, btn1m;
     private Button btnProcess;
     
-    private EditText pin1, pin2, pin3, pin4, pin5, pin6;
+    // PIN input removed - using SalesPinActivity instead
     
     private int selectedAmount = 0;
     
@@ -71,12 +71,7 @@ public class CashWithdrawalModernActivity extends Activity {
         
         btnProcess = findViewById(R.id.btn_process);
         
-        pin1 = findViewById(R.id.pin_1);
-        pin2 = findViewById(R.id.pin_2);
-        pin3 = findViewById(R.id.pin_3);
-        pin4 = findViewById(R.id.pin_4);
-        pin5 = findViewById(R.id.pin_5);
-        pin6 = findViewById(R.id.pin_6);
+        // PIN input elements removed - using SalesPinActivity instead
     }
     
     private void setupListeners() {
@@ -113,21 +108,13 @@ public class CashWithdrawalModernActivity extends Activity {
             }
         });
         
-        // PIN input
-        setupPinInput();
+        // PIN input removed - using SalesPinActivity instead
         
         // Process button
         btnProcess.setOnClickListener(v -> processWithdrawal());
     }
     
-    private void setupPinInput() {
-        pin1.addTextChangedListener(new PinTextWatcher(pin1, pin2));
-        pin2.addTextChangedListener(new PinTextWatcher(pin2, pin3));
-        pin3.addTextChangedListener(new PinTextWatcher(pin3, pin4));
-        pin4.addTextChangedListener(new PinTextWatcher(pin4, pin5));
-        pin5.addTextChangedListener(new PinTextWatcher(pin5, pin6));
-        pin6.addTextChangedListener(new PinTextWatcher(pin6, null));
-    }
+    // PIN input setup removed - using SalesPinActivity instead
     
     private void selectAmount(int amount) {
         selectedAmount = amount;
@@ -218,18 +205,7 @@ public class CashWithdrawalModernActivity extends Activity {
         tvCardStatus.setText("Kartu: " + maskCardNumber(cardNumber));
         tvCardStatus.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
         
-        // Hide PIN section since we'll use SalesPinActivity
-        pin1.setVisibility(View.GONE);
-        pin2.setVisibility(View.GONE);
-        pin3.setVisibility(View.GONE);
-        pin4.setVisibility(View.GONE);
-        pin5.setVisibility(View.GONE);
-        pin6.setVisibility(View.GONE);
-        
-        View pinSection = findViewById(R.id.pin_section);
-        if (pinSection != null) {
-            pinSection.setVisibility(View.GONE);
-        }
+        // PIN section already removed from layout
     }
     
     private void processWithdrawal() {
@@ -275,20 +251,18 @@ public class CashWithdrawalModernActivity extends Activity {
         // Simulate processing
         handler.postDelayed(() -> {
             processingDialog.dismiss();
-            showSuccessDialog();
+            showWithdrawalResult();
         }, 3000);
     }
     
-    private void showSuccessDialog() {
-        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-        String formattedAmount = formatter.format(selectedAmount).replace("Rp", "Rp ");
-        
-        new AlertDialog.Builder(this)
-            .setTitle("Transaksi Berhasil")
-            .setMessage("Penarikan tunai " + formattedAmount + " berhasil diproses.\n\nSilakan ambil uang Anda.")
-            .setPositiveButton("OK", (dialog, which) -> finish())
-            .setCancelable(false)
-            .show();
+    private void showWithdrawalResult() {
+        // Navigate to withdrawal result page
+        Intent intent = new Intent(this, WithdrawalResultActivity.class);
+        intent.putExtra(WithdrawalResultActivity.EXTRA_CARD_NUMBER, cardNumber);
+        intent.putExtra(WithdrawalResultActivity.EXTRA_AMOUNT, (long)selectedAmount);
+        intent.putExtra(WithdrawalResultActivity.EXTRA_ACCOUNT_TYPE, "Tabungan");
+        startActivity(intent);
+        finish();
     }
     
     private String parseCardNumber(String cardData) {
@@ -305,27 +279,6 @@ public class CashWithdrawalModernActivity extends Activity {
         return cardNumber;
     }
     
-    private class PinTextWatcher implements TextWatcher {
-        private EditText currentBox;
-        private EditText nextBox;
-        
-        public PinTextWatcher(EditText currentBox, EditText nextBox) {
-            this.currentBox = currentBox;
-            this.nextBox = nextBox;
-        }
-        
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() == 1 && nextBox != null) {
-                nextBox.requestFocus();
-            }
-        }
-    }
+    // PinTextWatcher class removed - using SalesPinActivity instead
     
 }

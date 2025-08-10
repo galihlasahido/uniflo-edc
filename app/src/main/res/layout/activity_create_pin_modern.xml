@@ -58,7 +58,121 @@
                 android:elevation="4dp"
                 android:layout_marginBottom="20dp">
 
+                <!-- Step Progress Indicator -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#E8F5E8"
+                    android:padding="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PROSES PEMBUATAN PIN"
+                        android:textColor="#4CAF50"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <!-- Step 1 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:text="1"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:background="@drawable/pin_bullet_filled"
+                                    android:gravity="center" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Masukkan PIN"
+                                    android:textColor="#4CAF50"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginStart="8dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <!-- Connecting line -->
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="2dp"
+                            android:background="#4CAF50"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <!-- Step 2 -->
+                        <LinearLayout
+                            android:id="@+id/confirm_step_indicator"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:alpha="0.4">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:text="2"
+                                    android:textColor="#666666"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:background="@drawable/pin_bullet_empty"
+                                    android:gravity="center" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Konfirmasi PIN"
+                                    android:textColor="#666666"
+                                    android:textSize="13sp"
+                                    android:layout_marginStart="8dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <TextView
+                    android:id="@+id/step_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -68,6 +182,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/step_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -79,6 +194,7 @@
 
                 <!-- New PIN bullets display -->
                 <LinearLayout
+                    android:id="@+id/new_bullets_section"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -123,6 +239,61 @@
 
                     <View
                         android:id="@+id/new_bullet_6"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                </LinearLayout>
+
+                <!-- Confirm PIN bullets display - will appear above keypad -->
+                <LinearLayout
+                    android:id="@+id/confirm_bullets_section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="gone">
+
+                    <View
+                        android:id="@+id/confirm_bullet_1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/confirm_bullet_2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/confirm_bullet_3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/confirm_bullet_4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/confirm_bullet_5"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/pin_bullet_empty"
+                        android:layout_margin="8dp" />
+
+                    <View
+                        android:id="@+id/confirm_bullet_6"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:background="@drawable/pin_bullet_empty"
@@ -359,91 +530,6 @@
 
             </LinearLayout>
 
-            <!-- Confirm PIN section -->
-            <LinearLayout
-                android:id="@+id/confirm_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:orientation="vertical"
-                android:padding="32dp"
-                android:elevation="4dp"
-                android:layout_marginBottom="20dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Konfirmasi PIN"
-                    android:textColor="#333333"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Masukkan kembali PIN untuk konfirmasi"
-                    android:textColor="#666666"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center" />
-
-                <!-- Confirm PIN bullets display -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="40dp">
-
-                    <View
-                        android:id="@+id/confirm_bullet_1"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/pin_bullet_empty"
-                        android:layout_margin="8dp" />
-
-                    <View
-                        android:id="@+id/confirm_bullet_2"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/pin_bullet_empty"
-                        android:layout_margin="8dp" />
-
-                    <View
-                        android:id="@+id/confirm_bullet_3"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/pin_bullet_empty"
-                        android:layout_margin="8dp" />
-
-                    <View
-                        android:id="@+id/confirm_bullet_4"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/pin_bullet_empty"
-                        android:layout_margin="8dp" />
-
-                    <View
-                        android:id="@+id/confirm_bullet_5"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/pin_bullet_empty"
-                        android:layout_margin="8dp" />
-
-                    <View
-                        android:id="@+id/confirm_bullet_6"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/pin_bullet_empty"
-                        android:layout_margin="8dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
             <!-- Security tips -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -487,19 +573,6 @@
 
             </LinearLayout>
 
-            <!-- Create button -->
-            <Button
-                android:id="@+id/btn_create_pin"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/bas_gradient_header"
-                android:text="BUAT PIN"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:enabled="false"
-                android:alpha="0.5" />
 
         </LinearLayout>
 

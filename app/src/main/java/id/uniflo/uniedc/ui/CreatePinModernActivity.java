@@ -2,6 +2,7 @@ package id.uniflo.uniedc.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import id.uniflo.uniedc.R;
@@ -17,7 +19,8 @@ import id.uniflo.uniedc.R;
 public class CreatePinModernActivity extends Activity {
     
     private ImageView backButton;
-    private LinearLayout confirmSection;
+    private LinearLayout confirmStepIndicator, newBulletsSection, confirmBulletsSection;
+    private TextView stepTitle, stepSubtitle;
     
     // Bullet views for new PIN
     private View newBullet1, newBullet2, newBullet3, newBullet4, newBullet5, newBullet6;
@@ -29,7 +32,6 @@ public class CreatePinModernActivity extends Activity {
     
     // Keypad buttons
     private Button key0, key1, key2, key3, key4, key5, key6, key7, key8, key9, keyClear;
-    private Button btnCreatePin;
     
     // PIN data
     private StringBuilder newPinBuilder = new StringBuilder();
@@ -43,6 +45,20 @@ public class CreatePinModernActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pin_modern);
         
+        // Get card data from previous verification activity
+        Intent intent = getIntent();
+        String cardNumber = intent.getStringExtra("card_number");
+        boolean cardVerified = intent.getBooleanExtra("card_verified", false);
+        
+        if (!cardVerified || cardNumber == null || cardNumber.isEmpty()) {
+            Toast.makeText(this, "Error: Kartu tidak terverifikasi", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+        
+        // Show card verified message
+        Toast.makeText(this, "Kartu terverifikasi. Buat PIN Baru.", Toast.LENGTH_SHORT).show();
+        
         initViews();
         setupListeners();
         updateBullets();
@@ -50,7 +66,11 @@ public class CreatePinModernActivity extends Activity {
     
     private void initViews() {
         backButton = findViewById(R.id.back_button);
-        confirmSection = findViewById(R.id.confirm_section);
+        confirmStepIndicator = findViewById(R.id.confirm_step_indicator);
+        newBulletsSection = findViewById(R.id.new_bullets_section);
+        confirmBulletsSection = findViewById(R.id.confirm_bullets_section);
+        stepTitle = findViewById(R.id.step_title);
+        stepSubtitle = findViewById(R.id.step_subtitle);
         
         // New PIN bullets
         newBullet1 = findViewById(R.id.new_bullet_1);
@@ -88,8 +108,6 @@ public class CreatePinModernActivity extends Activity {
         key8 = findViewById(R.id.key_8);
         key9 = findViewById(R.id.key_9);
         keyClear = findViewById(R.id.key_clear);
-        
-        btnCreatePin = findViewById(R.id.btn_create_pin);
     }
     
     private void setupListeners() {
@@ -107,8 +125,6 @@ public class CreatePinModernActivity extends Activity {
         key8.setOnClickListener(v -> addDigit("8"));
         key9.setOnClickListener(v -> addDigit("9"));
         keyClear.setOnClickListener(v -> clearLastDigit());
-        
-        btnCreatePin.setOnClickListener(v -> createPin());
     }
     
     private void addDigit(String digit) {
@@ -131,10 +147,9 @@ public class CreatePinModernActivity extends Activity {
                 confirmPinBuilder.append(digit);
                 updateBullets();
                 
-                // If confirm PIN is complete, enable create button
+                // If confirm PIN is complete, automatically create PIN
                 if (confirmPinBuilder.length() == 6) {
-                    btnCreatePin.setEnabled(true);
-                    btnCreatePin.setAlpha(1.0f);
+                    handler.postDelayed(this::createPin, 300);
                 }
             }
         }
@@ -153,21 +168,27 @@ public class CreatePinModernActivity extends Activity {
                 confirmPinBuilder.deleteCharAt(confirmPinBuilder.length() - 1);
                 updateBullets();
                 
-                // Disable create button if confirm PIN is incomplete
-                if (confirmPinBuilder.length() < 6) {
-                    btnCreatePin.setEnabled(false);
-                    btnCreatePin.setAlpha(0.5f);
-                }
+                // Reset confirmation PIN input
             }
         }
     }
     
     private void showConfirmSection() {
         isConfirmMode = true;
-        confirmSection.setVisibility(View.VISIBLE);
+        
+        // Hide new PIN bullets and show confirm PIN bullets
+        newBulletsSection.setVisibility(View.GONE);
+        confirmBulletsSection.setVisibility(View.VISIBLE);
+        
+        // Update step indicators
+        confirmStepIndicator.setAlpha(1.0f);
+        
+        // Update step title and subtitle
+        stepTitle.setText("Konfirmasi PIN");
+        stepSubtitle.setText("Masukkan kembali PIN untuk konfirmasi");
         
         // Scroll to show confirm section
-        findViewById(R.id.confirm_section).requestFocus();
+        confirmBulletsSection.requestFocus();
     }
     
     private void updateBullets() {
@@ -290,7 +311,7 @@ public class CreatePinModernActivity extends Activity {
             
             processingDialog.dismiss();
             showSuccessDialog();
-        }, 1500);
+        }, 2000);
     }
     
     private void showSuccessDialog() {
@@ -305,17 +326,22 @@ public class CreatePinModernActivity extends Activity {
     private void clearConfirmPin() {
         confirmPinBuilder.setLength(0);
         updateBullets();
-        btnCreatePin.setEnabled(false);
-        btnCreatePin.setAlpha(0.5f);
     }
     
     private void clearAllPins() {
         newPinBuilder.setLength(0);
         confirmPinBuilder.setLength(0);
         isConfirmMode = false;
-        confirmSection.setVisibility(View.GONE);
-        btnCreatePin.setEnabled(false);
-        btnCreatePin.setAlpha(0.5f);
+        
+        // Show new PIN bullets and hide confirm bullets
+        newBulletsSection.setVisibility(View.VISIBLE);
+        confirmBulletsSection.setVisibility(View.GONE);
+        
+        // Reset step indicators
+        confirmStepIndicator.setAlpha(0.5f);
+        stepTitle.setText("Masukkan PIN Baru");
+        stepSubtitle.setText("Buat PIN 6 digit untuk keamanan transaksi");
+        
         updateBullets();
     }
 }

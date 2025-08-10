@@ -111,8 +111,8 @@ public class BasHomeActivity extends Activity {
         // Handle specific menu navigation
         switch (menuName) {
             case "Create PIN":
-                // Navigate to modern create PIN
-                Intent createPinIntent = new Intent(this, CreatePinModernActivity.class);
+                // Navigate to card verification first, then create PIN
+                Intent createPinIntent = new Intent(this, CreatePinCardVerificationActivity.class);
                 startActivity(createPinIntent);
                 break;
             case "Change PIN":
@@ -132,7 +132,7 @@ public class BasHomeActivity extends Activity {
                 break;
             case "Transfer Off Us":
                 // Navigate to modern transfer (now Transfer Off Us - inter-bank)
-                Intent transferIntent = new Intent(this, TransferModernActivity.class);
+                Intent transferIntent = new Intent(this, TransferCardVerificationActivity.class);
                 startActivity(transferIntent);
                 break;
             case "Settings":

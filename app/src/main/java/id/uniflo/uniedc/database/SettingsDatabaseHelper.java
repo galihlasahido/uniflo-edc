@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SettingsDatabaseHelper extends SQLiteOpenHelper {
     
     private static final String DATABASE_NAME = "uniflo_edc_settings.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2; // Incremented to trigger database upgrade
     
     // Table names
     public static final String TABLE_NETWORK_SETTINGS = "network_settings";
@@ -15,6 +15,7 @@ public class SettingsDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_SECURITY_SETTINGS = "security_settings";
     public static final String TABLE_TRANSACTION_LIMITS = "transaction_limits";
     public static final String TABLE_TERMINAL_CONFIG = "terminal_config";
+    public static final String TABLE_SETTINGS = "settings"; // Generic key-value settings
     
     // Common columns
     public static final String COLUMN_ID = "_id";
@@ -176,6 +177,14 @@ public class SettingsDatabaseHelper extends SQLiteOpenHelper {
         COLUMN_CREATED_AT + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
         COLUMN_UPDATED_AT + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
     
+    // Generic key-value settings table
+    private static final String CREATE_SETTINGS_TABLE = 
+        "CREATE TABLE " + TABLE_SETTINGS + " (" +
+        "key TEXT PRIMARY KEY, " +
+        "value TEXT, " +
+        COLUMN_CREATED_AT + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+        COLUMN_UPDATED_AT + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+    
     private static SettingsDatabaseHelper instance;
     
     public static synchronized SettingsDatabaseHelper getInstance(Context context) {
@@ -196,6 +205,7 @@ public class SettingsDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_SECURITY_SETTINGS_TABLE);
         db.execSQL(CREATE_TRANSACTION_LIMITS_TABLE);
         db.execSQL(CREATE_TERMINAL_CONFIG_TABLE);
+        db.execSQL(CREATE_SETTINGS_TABLE); // Create the generic settings table
         
         // Insert default values
         insertDefaultValues(db);
@@ -209,6 +219,7 @@ public class SettingsDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SECURITY_SETTINGS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTION_LIMITS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERMINAL_CONFIG);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
         
         // Create tables again
         onCreate(db);

@@ -1,12 +1,16 @@
 package id.uniflo.uniedc.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -209,6 +213,7 @@ public class CardReaderActivity extends Activity {
         debugLog("🔧 Binding to Feitian Service...");
         updateStatus("Initializing card reader service...", true);
         
+        // Try to connect to real hardware first
         ServiceManager.bindPosServer(this, new OnServiceConnectCallback() {
             @Override
             public void onSuccess() {
@@ -231,7 +236,8 @@ public class CardReaderActivity extends Activity {
                     if (initializeIcReader()) {
                         startIcCardReading();
                     } else {
-                        finishWithError("Service binding failed. Please ensure Feitian service is installed.");
+                        // Show manual card entry for testing when no hardware available
+                        showManualCardEntryDialog();
                     }
                 });
             }
@@ -297,8 +303,8 @@ public class CardReaderActivity extends Activity {
                         }
                     });
                     
-                    // Process NSICCS card specifically
-                    processNsiccsCard();
+                    // Process ICC card with all enabled AIDs
+                    processIccCardWithAllAids();
                 }
                 
                 @Override
@@ -327,28 +333,87 @@ public class CardReaderActivity extends Activity {
         }
     }
     
+    private void processIccCardWithAllAids() {
+        debugLog("💳 Processing ICC card with all enabled AIDs...");
+        
+        // Get all enabled AIDs from settings
+        List<String[]> enabledAids = AidSettingsActivity.getEnabledAids(this);
+        debugLog("Found " + enabledAids.size() + " enabled AIDs in settings");
+        
+        boolean aidSelected = false;
+        String selectedAidName = null;
+        String selectedAidHex = null;
+        
+        // Try each enabled AID
+        for (String[] aid : enabledAids) {
+            String aidName = aid[0];
+            String aidHex = aid[1];
+            
+            debugLog("\n📍 Trying AID: " + aidName + " (" + aidHex + ")");
+            
+            if (trySelectAid(aidName, aidHex)) {
+                aidSelected = true;
+                selectedAidName = aidName;
+                selectedAidHex = aidHex;
+                debugLog("✅ " + aidName + " application selected successfully!");
+                break;
+            }
+        }
+        
+        if (aidSelected) {
+            // Process based on the selected AID type
+            if (selectedAidName.contains("NSICCS")) {
+                debugLog("🇮🇩 Processing as NSICCS card...");
+                processNsiccsSpecific();
+            } else if (selectedAidName.contains("Visa") || selectedAidHex.startsWith("A0000000031010")) {
+                debugLog("💳 Processing as Visa card...");
+                processVisaCard();
+            } else if (selectedAidName.contains("Mastercard") || selectedAidHex.startsWith("A0000000041010")) {
+                debugLog("💳 Processing as Mastercard...");
+                processMastercardCard();
+            } else {
+                debugLog("📋 Processing as generic EMV card...");
+                processGenericEmvCard();
+            }
+        } else {
+            debugLog("⚠️ No AID could be selected, trying alternative methods...");
+            tryAlternativeMethods();
+            
+            // After trying alternative methods, check if we found valid card data
+            if (cardNumber == null || cardNumber.isEmpty() || cardNumber.startsWith("****")) {
+                debugLog("❌ All card reading methods failed");
+                runOnUiThread(() -> {
+                    finishWithError("Unable to read card. Please ensure the card is properly inserted and try again.");
+                });
+            }
+        }
+    }
+    
     private void processNsiccsCard() {
-        debugLog("🇮🇩 Processing NSICCS card...");
+        debugLog("🇮🇩 Processing NSICCS card (legacy method)...");
         debugLog("Using working NSICCS implementation...");
         
         // Based on working log, directly try NSICCS AID
         debugLog("📍 Step 1: Select NSICCS Application");
         if (selectNsiccsApplication()) {
             debugLog("✅ NSICCS application selected");
-            
-            // Get Processing Options with correct PDOL
-            debugLog("📍 Step 2: Get Processing Options (GPO)");
-            if (performNsiccsGPO()) {
-                debugLog("✅ GPO successful");
-                
-                // Read application data records
-                debugLog("📍 Step 3: Read Application Data");
-                readNsiccsApplicationData();
-            }
+            processNsiccsSpecific();
         } else {
             // Fallback to other methods
             debugLog("⚠️ Standard NSICCS selection failed, trying alternatives...");
             tryAlternativeMethods();
+        }
+    }
+    
+    private void processNsiccsSpecific() {
+        // Get Processing Options with correct PDOL
+        debugLog("📍 Step 2: Get Processing Options (GPO)");
+        if (performNsiccsGPO()) {
+            debugLog("✅ GPO successful");
+            
+            // Read application data records
+            debugLog("📍 Step 3: Read Application Data");
+            readNsiccsApplicationData();
         }
     }
     
@@ -566,7 +631,10 @@ public class CardReaderActivity extends Activity {
                 e.printStackTrace();
             }
         } else {
-            debugLog("   ⚠️ No valid ICC data found - cardNumber: '" + cardNumber + "', EMV data length: " + emvTlvData.length());
+            debugLog("   ❌ No valid ICC data found - cardNumber: '" + cardNumber + "', EMV data length: " + emvTlvData.length());
+            runOnUiThread(() -> {
+                finishWithError("Unable to read card data. Please check the card and try again.");
+            });
         }
         debugLog("   🔚 readNsiccsApplicationData() completed");
     }
@@ -656,6 +724,369 @@ public class CardReaderActivity extends Activity {
             }
         } catch (Exception e) {
             debugLog("   ❌ Error extracting PAN: " + e.getMessage());
+        }
+    }
+    
+    private void processVisaCard() {
+        debugLog("💳 Processing Visa card...");
+        
+        // Visa-specific GPO command
+        try {
+            // Standard Visa GPO command
+            byte[] gpoCommand = new byte[]{(byte)0x80, (byte)0xA8, 0x00, 0x00, 0x02, (byte)0x83, 0x00};
+            debugLog("  📤 Sending Visa GPO: " + BytesUtils.byte2HexStr(gpoCommand));
+            
+            byte[] response = new byte[256];
+            int[] responseLength = new int[1];
+            
+            int ret = icReader.sendApduCustomer(gpoCommand, gpoCommand.length, response, responseLength);
+            
+            if (ret == ErrCode.ERR_SUCCESS && responseLength[0] >= 2) {
+                byte sw1 = response[responseLength[0] - 2];
+                byte sw2 = response[responseLength[0] - 1];
+                
+                if (sw1 == (byte) 0x90 && sw2 == 0x00) {
+                    debugLog("  ✅ Visa GPO successful");
+                    // Read Visa application data
+                    readVisaApplicationData();
+                } else {
+                    debugLog("  ⚠️ Visa GPO failed: " + String.format("%02X%02X", sw1, sw2));
+                    // Try generic EMV processing
+                    processGenericEmvCard();
+                }
+            }
+        } catch (Exception e) {
+            debugLog("  ❌ Visa processing error: " + e.getMessage());
+            processGenericEmvCard();
+        }
+    }
+    
+    private void processMastercardCard() {
+        debugLog("💳 Processing Mastercard...");
+        
+        // Mastercard-specific GPO command
+        try {
+            // Standard Mastercard GPO command
+            byte[] gpoCommand = new byte[]{(byte)0x80, (byte)0xA8, 0x00, 0x00, 0x02, (byte)0x83, 0x00};
+            debugLog("  📤 Sending Mastercard GPO: " + BytesUtils.byte2HexStr(gpoCommand));
+            
+            byte[] response = new byte[256];
+            int[] responseLength = new int[1];
+            
+            int ret = icReader.sendApduCustomer(gpoCommand, gpoCommand.length, response, responseLength);
+            
+            if (ret == ErrCode.ERR_SUCCESS && responseLength[0] >= 2) {
+                byte sw1 = response[responseLength[0] - 2];
+                byte sw2 = response[responseLength[0] - 1];
+                
+                if (sw1 == (byte) 0x90 && sw2 == 0x00) {
+                    debugLog("  ✅ Mastercard GPO successful");
+                    // Read Mastercard application data
+                    readMastercardApplicationData();
+                } else {
+                    debugLog("  ⚠️ Mastercard GPO failed: " + String.format("%02X%02X", sw1, sw2));
+                    // Try generic EMV processing
+                    processGenericEmvCard();
+                }
+            }
+        } catch (Exception e) {
+            debugLog("  ❌ Mastercard processing error: " + e.getMessage());
+            processGenericEmvCard();
+        }
+    }
+    
+    private void processGenericEmvCard() {
+        debugLog("📋 Processing generic EMV card...");
+        
+        // Try standard EMV GPO
+        try {
+            // Build generic GPO command
+            byte[] gpoCommand = new byte[]{(byte)0x80, (byte)0xA8, 0x00, 0x00, 0x02, (byte)0x83, 0x00};
+            debugLog("  📤 Sending generic EMV GPO: " + BytesUtils.byte2HexStr(gpoCommand));
+            
+            byte[] response = new byte[256];
+            int[] responseLength = new int[1];
+            
+            int ret = icReader.sendApduCustomer(gpoCommand, gpoCommand.length, response, responseLength);
+            
+            if (ret == ErrCode.ERR_SUCCESS && responseLength[0] >= 2) {
+                byte sw1 = response[responseLength[0] - 2];
+                byte sw2 = response[responseLength[0] - 1];
+                
+                if (sw1 == (byte) 0x90 && sw2 == 0x00) {
+                    debugLog("  ✅ Generic EMV GPO successful");
+                    String responseHex = BytesUtils.byte2HexStr(response, responseLength[0]);
+                    debugLog("  📥 Response: " + responseHex);
+                    
+                    // Try to extract AFL from response
+                    if (responseHex.startsWith("77")) {
+                        // Format 2 response
+                        debugLog("  🔐 Format 2 response (TLV)");
+                        parseEmvTlvResponse(response, responseLength[0]);
+                    } else if (responseHex.startsWith("80")) {
+                        // Format 1 response
+                        debugLog("  🔐 Format 1 response");
+                        parseEmvFormat1Response(response, responseLength[0]);
+                    }
+                    
+                    // Read application data records
+                    readGenericEmvRecords();
+                } else {
+                    debugLog("  ⚠️ Generic EMV GPO failed: " + String.format("%02X%02X", sw1, sw2));
+                    // Try direct record reading
+                    tryDirectRecordReading();
+                }
+            }
+        } catch (Exception e) {
+            debugLog("  ❌ Generic EMV processing error: " + e.getMessage());
+            tryDirectRecordReading();
+        }
+    }
+    
+    private void readVisaApplicationData() {
+        debugLog("  📖 Reading Visa application data...");
+        
+        // Common Visa record locations
+        int[][] visaRecords = {
+            {2, 1}, {2, 2}, {2, 3}, // SFI 2
+            {1, 1}, {1, 2}, // SFI 1
+            {3, 1}, {3, 2}, // SFI 3
+        };
+        
+        for (int[] loc : visaRecords) {
+            readEmvRecord(loc[0], loc[1], "Visa");
+        }
+    }
+    
+    private void readMastercardApplicationData() {
+        debugLog("  📖 Reading Mastercard application data...");
+        
+        // Common Mastercard record locations
+        int[][] mastercardRecords = {
+            {2, 1}, {2, 2}, {2, 3}, // SFI 2
+            {1, 1}, {1, 2}, // SFI 1
+            {4, 1}, {4, 2}, // SFI 4
+        };
+        
+        for (int[] loc : mastercardRecords) {
+            readEmvRecord(loc[0], loc[1], "Mastercard");
+        }
+    }
+    
+    private void readGenericEmvRecords() {
+        debugLog("  📖 Reading generic EMV records...");
+        
+        // Try common EMV record locations
+        int[][] emvRecords = {
+            {1, 1}, {1, 2}, {1, 3}, // SFI 1
+            {2, 1}, {2, 2}, {2, 3}, // SFI 2
+            {3, 1}, {3, 2}, // SFI 3
+            {4, 1}, {4, 2}, // SFI 4
+        };
+        
+        for (int[] loc : emvRecords) {
+            if (readEmvRecord(loc[0], loc[1], "EMV")) {
+                // If we found a valid PAN, we can stop
+                if (cardValidated && cardNumber != null && !cardNumber.startsWith("****")) {
+                    debugLog("  ✅ Valid card data found, stopping record read");
+                    break;
+                }
+            }
+        }
+    }
+    
+    private boolean readEmvRecord(int sfi, int recordNum, String cardType) {
+        try {
+            byte p2 = (byte) ((sfi << 3) | 0x04);
+            byte[] readRecordCmd = new byte[]{0x00, (byte) 0xB2, (byte) recordNum, p2, 0x00};
+            
+            debugLog("    Reading " + cardType + " SFI=" + sfi + " REC=" + recordNum);
+            debugLog("    CMD: " + BytesUtils.byte2HexStr(readRecordCmd));
+            
+            byte[] response = new byte[256];
+            int[] responseLength = new int[1];
+            
+            int ret = icReader.sendApduCustomer(readRecordCmd, readRecordCmd.length, response, responseLength);
+            
+            if (ret == ErrCode.ERR_SUCCESS && responseLength[0] > 2) {
+                byte sw1 = response[responseLength[0] - 2];
+                byte sw2 = response[responseLength[0] - 1];
+                
+                if (sw1 == (byte) 0x90 && sw2 == 0x00) {
+                    String responseHex = BytesUtils.byte2HexStr(response, responseLength[0]);
+                    debugLog("    RSP: " + responseHex);
+                    
+                    // Parse the record data
+                    parseEmvRecordData(response, responseLength[0] - 2);
+                    
+                    // Check if we found valid card data
+                    if (cardValidated && cardNumber != null && !cardNumber.startsWith("****")) {
+                        debugLog("    🎯 Valid " + cardType + " card data found!");
+                        finishWithSuccess();
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            debugLog("    ❌ Error reading " + cardType + " record: " + e.getMessage());
+        }
+        return false;
+    }
+    
+    private void parseEmvTlvResponse(byte[] response, int length) {
+        debugLog("  🔍 Parsing EMV TLV response...");
+        try {
+            // Skip tag 77 and length
+            int index = 0;
+            if (response[0] == 0x77) {
+                index = 2; // Skip tag and length
+                if ((response[1] & 0x80) == 0x80) {
+                    // Multi-byte length
+                    int lenBytes = response[1] & 0x7F;
+                    index = 2 + lenBytes;
+                }
+            }
+            
+            // Look for AFL (tag 94)
+            while (index < length - 2) {
+                byte tag = response[index];
+                int tagLen = response[index + 1] & 0xFF;
+                
+                if (tag == (byte) 0x94) {
+                    debugLog("  📋 Found AFL at offset " + index);
+                    // Process AFL data
+                    for (int i = 0; i < tagLen; i += 4) {
+                        int sfi = (response[index + 2 + i] >> 3) & 0x1F;
+                        int firstRec = response[index + 2 + i + 1] & 0xFF;
+                        int lastRec = response[index + 2 + i + 2] & 0xFF;
+                        
+                        debugLog("    AFL Entry: SFI=" + sfi + " Records=" + firstRec + "-" + lastRec);
+                        
+                        // Read records based on AFL
+                        for (int rec = firstRec; rec <= lastRec; rec++) {
+                            readEmvRecord(sfi, rec, "AFL-based");
+                        }
+                    }
+                    break;
+                }
+                
+                index += 2 + tagLen;
+            }
+        } catch (Exception e) {
+            debugLog("  ❌ Error parsing TLV response: " + e.getMessage());
+        }
+    }
+    
+    private void parseEmvFormat1Response(byte[] response, int length) {
+        debugLog("  🔍 Parsing EMV Format 1 response...");
+        try {
+            // Format 1: tag 80 followed by AIP (2 bytes) and AFL
+            if (response[0] == (byte) 0x80 && length > 4) {
+                int dataLen = response[1] & 0xFF;
+                
+                // Skip tag, length, and AIP (2 bytes)
+                int aflStart = 4;
+                int aflLen = dataLen - 2;
+                
+                debugLog("  📋 AFL data starting at offset " + aflStart + ", length " + aflLen);
+                
+                // Process AFL entries
+                for (int i = 0; i < aflLen; i += 4) {
+                    if (aflStart + i + 3 < length) {
+                        int sfi = (response[aflStart + i] >> 3) & 0x1F;
+                        int firstRec = response[aflStart + i + 1] & 0xFF;
+                        int lastRec = response[aflStart + i + 2] & 0xFF;
+                        
+                        debugLog("    AFL Entry: SFI=" + sfi + " Records=" + firstRec + "-" + lastRec);
+                        
+                        // Read records based on AFL
+                        for (int rec = firstRec; rec <= lastRec; rec++) {
+                            readEmvRecord(sfi, rec, "Format1-AFL");
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            debugLog("  ❌ Error parsing Format 1 response: " + e.getMessage());
+        }
+    }
+    
+    private String extractPanFromTrack2(String track2Hex) {
+        try {
+            // Convert hex string to bytes
+            byte[] track2Data = hexStringToByteArray(track2Hex);
+            
+            // Convert BCD to string
+            String track2 = bcdToCardNumber(track2Data);
+            debugLog("      Track 2 Decoded: " + track2);
+            
+            // Extract PAN (before D or = separator)
+            int separator = track2.indexOf('D');
+            if (separator == -1) separator = track2.indexOf('=');
+            
+            if (separator > 0) {
+                String pan = track2.substring(0, separator);
+                debugLog("      PAN Extracted: " + pan);
+                return pan;
+            }
+        } catch (Exception e) {
+            debugLog("      Error extracting PAN from track2: " + e.getMessage());
+        }
+        return null;
+    }
+    
+    private void parseEmvRecordData(byte[] recordData, int length) {
+        debugLog("  🔍 Parsing EMV record data...");
+        
+        // Look for common EMV tags
+        for (int i = 0; i < length - 1; i++) {
+            // Tag 57 - Track 2 Equivalent Data
+            if (recordData[i] == 0x57) {
+                int tagLength = recordData[i + 1] & 0xFF;
+                if (i + 2 + tagLength <= length) {
+                    byte[] track2Data = new byte[tagLength];
+                    System.arraycopy(recordData, i + 2, track2Data, 0, tagLength);
+                    String track2Hex = BytesUtils.byte2HexStr(track2Data);
+                    debugLog("    💳 Track 2 data: " + track2Hex);
+                    
+                    // Extract PAN from track 2 data
+                    String pan = extractPanFromTrack2(track2Hex);
+                    if (pan != null && pan.length() >= 13 && pan.length() <= 19) {
+                        fullPan = pan;
+                        cardNumber = maskCardNumber(pan);
+                        cardValidated = true;
+                        track2DataHex = track2Hex;
+                        updatePanDisplay();
+                        
+                        // Add to EMV TLV data
+                        emvTlvData.append("57").append(String.format("%02X", tagLength)).append(track2Hex);
+                        debugLog("    ✅ Valid PAN found: " + cardNumber);
+                    }
+                }
+            }
+            
+            // Tag 5A - Application Primary Account Number
+            if (recordData[i] == 0x5A) {
+                int tagLength = recordData[i + 1] & 0xFF;
+                if (i + 2 + tagLength <= length && tagLength >= 4 && tagLength <= 10) {
+                    byte[] panData = new byte[tagLength];
+                    System.arraycopy(recordData, i + 2, panData, 0, tagLength);
+                    String pan = bcdToCardNumber(panData);
+                    debugLog("    💳 PAN from tag 5A: " + pan);
+                    
+                    if (pan.length() >= 13 && pan.length() <= 19) {
+                        fullPan = pan;
+                        cardNumber = maskCardNumber(pan);
+                        cardValidated = true;
+                        updatePanDisplay();
+                        
+                        // Add PAN to EMV TLV data
+                        String panHex = BytesUtils.byte2HexStr(panData);
+                        emvTlvData.append("5A").append(String.format("%02X", tagLength)).append(panHex);
+                        debugLog("    ✅ Valid PAN found: " + cardNumber);
+                    }
+                }
+            }
         }
     }
     
@@ -1265,33 +1696,24 @@ public class CardReaderActivity extends Activity {
                     }
                 }, 3000);
             } else {
-                // Use ATR fallback for NSICCS dev card
-                debugLog("⚠️ No PAN found in ICC data, using test card fallback");
-                extractCardNumberFromAtr();
+                // No valid PAN found - show error and prevent navigation
+                debugLog("❌ No PAN found in ICC data");
+                updateStatus("Unable to read card data. Please try again with a different card.", false);
                 
-                if (cardNumber != null && !cardNumber.startsWith("****")) {
-                    updateStatus("Test Card Generated:\n" + cardNumber + "\n(Development mode - not actual PAN)", false);
-                    debugLog("=====================================");
-                    debugLog("⚠️ Generated test card number for development");
-                    debugLog("Test Card Number: " + cardNumber);
-                    debugLog("ATR: " + cardAtr);
-                    debugLog("This is for testing only!");
-                    debugLog("=====================================");
-                    
-                    // Continue button for test card
-                    cancelButton.setText("Continue (Test Card)");
-                    cancelButton.setOnClickListener(v -> {
-                        debugLog("📤 User pressed Continue - using test card...");
-                        finishWithSuccess();
-                    });
-                } else {
-                    updateStatus("Kartu tidak dapat dibaca", true);
-                    cancelButton.setText("Cancel");
-                    cancelButton.setOnClickListener(v -> {
-                        debugLog("❌ User cancelled - card reading failed");
-                        finish();
-                    });
-                }
+                // Cancel button should allow retry
+                cancelButton.setText("Cancel");
+                cancelButton.setOnClickListener(v -> {
+                    debugLog("❌ User cancelled - no valid card data");
+                    finishWithError("Card reading failed");
+                });
+                
+                // Auto-close with error after 3 seconds
+                handler.postDelayed(() -> {
+                    if (!isFinishing()) {
+                        debugLog("❌ Auto-closing - card reading failed");
+                        finishWithError("Unable to read card. Please ensure the card is properly inserted.");
+                    }
+                }, 3000);
             }
             debugLog("🏁 processResults() UI thread execution finished");
         });
@@ -1353,24 +1775,11 @@ public class CardReaderActivity extends Activity {
     }
     
     private void extractCardNumberFromAtr() {
-        if (cardAtr != null && cardAtr.length() >= 8) {
-            // For NSICCS dev cards, generate a test card number
-            // Using format: 9999XXXXYYYYZZZZ where:
-            // 9999 = test card prefix
-            // XXXX = random 4 digits
-            // YYYY = random 4 digits  
-            // ZZZZ = checksum digits
-            String testPrefix = "9999";
-            String middle = String.format("%08d", (int)(Math.random() * 100000000));
-            String testCardNumber = testPrefix + middle + "0000";
-            cardNumber = testCardNumber;
-            cardValidated = true;
-            debugLog("NSICCS dev card - generated test number: " + cardNumber);
-            debugLog("Note: This is a test card number for development only!");
-            debugLog("ATR: " + cardAtr);
-        } else {
-            cardNumber = "****UNKNOWN";
-        }
+        // Do not generate fake card numbers
+        debugLog("⚠️ Cannot extract actual card number from ATR alone");
+        debugLog("ATR: " + cardAtr);
+        cardNumber = null;
+        cardValidated = false;
     }
     
     private byte[] hexStringToByteArray(String s) {
@@ -1403,7 +1812,7 @@ public class CardReaderActivity extends Activity {
     
     private String maskCardNumber(String fullCardNumber) {
         if (fullCardNumber == null || fullCardNumber.length() < 6) {
-            return "****" + (fullCardNumber != null ? fullCardNumber : "UNKNOWN");
+            return null; // Don't generate fake card numbers
         }
         
         // Show first 4 and last 4 digits, mask the middle
@@ -1458,9 +1867,44 @@ public class CardReaderActivity extends Activity {
         debugLog("❌ ERROR - Finishing with error: " + errorMessage);
         cleanup();
         
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
-        setResult(RESULT_CANCELED);
-        finish();
+        // Show error message
+        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+        
+        // Update status to show error
+        updateStatus(errorMessage, false);
+        
+        // Wait for 3 seconds before closing to give user time to read the error
+        handler.postDelayed(() -> {
+            setResult(RESULT_CANCELED);
+            finish();
+        }, 3000);
+    }
+    
+    /**
+     * Show error when hardware is not available
+     */
+    private void showManualCardEntryDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Card Reader Not Available");
+        builder.setMessage("Feitian card reader service is not available. Please ensure:\n\n" +
+                          "1. The Feitian service app is installed\n" +
+                          "2. You are using a compatible Feitian POS device\n" +
+                          "3. The device has card reader hardware\n\n" +
+                          "Cannot proceed without card reader.");
+        
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                // This will wait 3 seconds before finishing
+                finishWithError("Card reader not available");
+            }
+        });
+        
+        // Make dialog non-cancelable so user must click OK
+        builder.setCancelable(false);
+        
+        builder.show();
     }
     
     @Override
