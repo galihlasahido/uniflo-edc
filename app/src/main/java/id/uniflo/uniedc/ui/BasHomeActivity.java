@@ -48,19 +48,19 @@ public class BasHomeActivity extends Activity {
     }
     
     private void setupMenuIcons() {
-        // Transaction menu items with gradients - using better icons and backgrounds
-        setGridMenuItem(menuSales, "Sales", R.drawable.ic_cart, R.drawable.bas_menu_gradient_3); // Green gradient
-        setGridMenuItem(menuBalanceInquiry, "Balance\nInquiry", R.drawable.ic_wallet_balance, R.drawable.bas_menu_gradient_2); // Blue gradient
+        // Transaction menu items with same orange gradient as Cash Withdrawal
+        setGridMenuItem(menuSales, "Sales", R.drawable.ic_cart, R.drawable.bas_menu_gradient_5); // Orange gradient
+        setGridMenuItem(menuBalanceInquiry, "Balance\nInquiry", R.drawable.ic_wallet_balance, R.drawable.bas_menu_gradient_5); // Orange gradient
         setGridMenuItem(menuTarikTunai, getString(R.string.menu_cash_withdrawal), R.drawable.ic_tarik_tunai, R.drawable.bas_menu_gradient_5); // Orange gradient
-        setGridMenuItem(menuTransferOnUs, getString(R.string.menu_transfer), R.drawable.ic_transfer_bank, R.drawable.bas_menu_gradient_1); // Primary gradient
+        setGridMenuItem(menuTransferOnUs, getString(R.string.menu_transfer), R.drawable.ic_transfer_bank, R.drawable.bas_menu_gradient_5); // Orange gradient
         
-        // PIN Management with gradients
-        setGridMenuItem(menuCreatePin, getString(R.string.menu_create_pin), R.drawable.ic_key, R.drawable.bas_menu_gradient_4); // Purple gradient
-        setGridMenuItem(menuChangePin, getString(R.string.menu_change_pin), R.drawable.ic_refresh, R.drawable.bas_menu_gradient_6); // Teal gradient
-        setGridMenuItem(menuVerificationPin, getString(R.string.menu_verify_pin), R.drawable.ic_check_circle, R.drawable.bas_menu_gradient_7); // Pink gradient
+        // PIN Management with same orange gradient
+        setGridMenuItem(menuCreatePin, getString(R.string.menu_create_pin), R.drawable.ic_key, R.drawable.bas_menu_gradient_5); // Orange gradient
+        setGridMenuItem(menuChangePin, getString(R.string.menu_change_pin), R.drawable.ic_refresh, R.drawable.bas_menu_gradient_5); // Orange gradient
+        setGridMenuItem(menuVerificationPin, getString(R.string.menu_verify_pin), R.drawable.ic_check_circle, R.drawable.bas_menu_gradient_5); // Orange gradient
         
-        // Settings with gradient
-        setGridMenuItem(menuSettings, getString(R.string.menu_settings), R.drawable.ic_settings, R.drawable.bas_menu_gradient_8); // Gray gradient
+        // Settings with same orange gradient
+        setGridMenuItem(menuSettings, getString(R.string.menu_settings), R.drawable.ic_settings, R.drawable.bas_menu_gradient_5); // Orange gradient
     }
     
     private void setGridMenuItem(View menuItem, String title, int iconResId, int gradientResId) {
