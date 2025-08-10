@@ -488,7 +488,7 @@ public class CardReaderActivity extends Activity {
                         debugLog("   🔍 !cardNumber.isEmpty(): " + (!cardNumber.isEmpty()));
                     }
                     
-                    if (cardNumber != null && !cardNumber.equals("****UNKNOWN") && !cardNumber.isEmpty()) {
+                    if (cardNumber != null && !cardNumber.equals("****UNKNOWN") && !cardNumber.isEmpty() && !cardNumber.startsWith("****")) {
                         debugLog("   🎉 Valid card found, setting completion flag and processing results...");
                         cardProcessingComplete = true;
                         try {
@@ -523,7 +523,7 @@ public class CardReaderActivity extends Activity {
                             debugLog("   📊 SFI=" + sfi + " REC=" + rec + ": " + recHex);
                             extractPanFromRecord(response, responseLength[0]);
                             
-                            if (cardNumber != null && !cardNumber.equals("****UNKNOWN") && !cardNumber.isEmpty()) {
+                            if (cardNumber != null && !cardNumber.equals("****UNKNOWN") && !cardNumber.isEmpty() && !cardNumber.startsWith("****")) {
                                 debugLog("   🎯 Found valid card: " + cardNumber);
                                 debugLog("   🎯 Card found in secondary loop, triggering processResults()");
                                 cardProcessingComplete = true;
@@ -549,7 +549,7 @@ public class CardReaderActivity extends Activity {
         debugLog("   🔍 FINAL CHECK - EMV data length: " + emvTlvData.length());
         
         // Check if we have any valid card data OR if ICC reading was successful
-        boolean hasValidCard = (cardNumber != null && !cardNumber.equals("****UNKNOWN") && !cardNumber.isEmpty());
+        boolean hasValidCard = (cardNumber != null && !cardNumber.equals("****UNKNOWN") && !cardNumber.isEmpty() && !cardNumber.startsWith("****"));
         boolean hasEmvData = (emvTlvData.length() > 0);
         boolean iccSuccess = hasValidCard || hasEmvData;
         
@@ -1230,7 +1230,7 @@ public class CardReaderActivity extends Activity {
             debugLog("🏁 processResults() UI thread execution started");
             debugLog("🏁 Checking card data validity...");
             
-            if (cardNumber != null && !cardNumber.isEmpty() && !cardNumber.equals("****UNKNOWN")) {
+            if (cardNumber != null && !cardNumber.isEmpty() && !cardNumber.equals("****UNKNOWN") && !cardNumber.startsWith("****")) {
                 debugLog("🏁 Card data valid, proceeding with processing...");
                 debugLog("🏁 About to call updateStatus()...");
                 updateStatus("Kartu ICC berhasil dibaca - " + cardNumber, false);
@@ -1266,22 +1266,32 @@ public class CardReaderActivity extends Activity {
                 }, 3000);
             } else {
                 // Use ATR fallback for NSICCS dev card
-                debugLog("⚠️ No PAN found in ICC data, using ATR fallback");
+                debugLog("⚠️ No PAN found in ICC data, using test card fallback");
                 extractCardNumberFromAtr();
-                updateStatus("Kartu ICC terdeteksi - " + cardNumber, false);
-                debugLog("=====================================");
-                debugLog("⚠️ Used ATR fallback for NSICCS dev card");
-                debugLog("Card Number: " + cardNumber);
-                debugLog("ATR: " + cardAtr);
-                debugLog("This may not be the actual PAN!");
-                debugLog("=====================================");
                 
-                // Cancel button for fallback
-                cancelButton.setText("Continue (ATR)");
-                cancelButton.setOnClickListener(v -> {
-                    debugLog("📤 User pressed Continue - returning ATR data...");
-                    finishWithSuccess();
-                });
+                if (cardNumber != null && !cardNumber.startsWith("****")) {
+                    updateStatus("Test Card Generated:\n" + cardNumber + "\n(Development mode - not actual PAN)", false);
+                    debugLog("=====================================");
+                    debugLog("⚠️ Generated test card number for development");
+                    debugLog("Test Card Number: " + cardNumber);
+                    debugLog("ATR: " + cardAtr);
+                    debugLog("This is for testing only!");
+                    debugLog("=====================================");
+                    
+                    // Continue button for test card
+                    cancelButton.setText("Continue (Test Card)");
+                    cancelButton.setOnClickListener(v -> {
+                        debugLog("📤 User pressed Continue - using test card...");
+                        finishWithSuccess();
+                    });
+                } else {
+                    updateStatus("Kartu tidak dapat dibaca", true);
+                    cancelButton.setText("Cancel");
+                    cancelButton.setOnClickListener(v -> {
+                        debugLog("❌ User cancelled - card reading failed");
+                        finish();
+                    });
+                }
             }
             debugLog("🏁 processResults() UI thread execution finished");
         });
@@ -1344,10 +1354,20 @@ public class CardReaderActivity extends Activity {
     
     private void extractCardNumberFromAtr() {
         if (cardAtr != null && cardAtr.length() >= 8) {
-            // For NSICCS dev cards, extract last 8 hex chars from ATR
-            cardNumber = "****" + cardAtr.substring(cardAtr.length() - 8);
+            // For NSICCS dev cards, generate a test card number
+            // Using format: 9999XXXXYYYYZZZZ where:
+            // 9999 = test card prefix
+            // XXXX = random 4 digits
+            // YYYY = random 4 digits  
+            // ZZZZ = checksum digits
+            String testPrefix = "9999";
+            String middle = String.format("%08d", (int)(Math.random() * 100000000));
+            String testCardNumber = testPrefix + middle + "0000";
+            cardNumber = testCardNumber;
             cardValidated = true;
-            debugLog("NSICCS dev card - using ATR suffix: " + cardNumber);
+            debugLog("NSICCS dev card - generated test number: " + cardNumber);
+            debugLog("Note: This is a test card number for development only!");
+            debugLog("ATR: " + cardAtr);
         } else {
             cardNumber = "****UNKNOWN";
         }

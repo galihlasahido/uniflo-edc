@@ -24,7 +24,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="1dp">
             
             <ImageView
                 android:id="@+id/back_button"
@@ -90,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"
-        android:layout_marginTop="-40dp"
+        android:layout_marginTop="-60dp"
         android:fillViewport="true">
 
         <LinearLayout
@@ -237,7 +237,7 @@
                 android:textColor="#2C2C2C"
                 android:textSize="16sp"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="12dp"/>
             
@@ -253,74 +253,60 @@
                 <LinearLayout
                     android:id="@+id/btn_card_payment"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/white_card_background"
-                    android:gravity="center"
+                    android:layout_height="99dp"
                     android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_card_background"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground">
-                    
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
                     <View
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/menu_sales"/>
-                        
+                        android:background="@drawable/menu_sales" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-medium"
                         android:text="Card"
                         android:textColor="#2C2C2C"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:layout_marginTop="8dp"/>
-                        
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Debit/Credit"
-                        android:textColor="#808080"
-                        android:textSize="10sp"
-                        android:layout_marginTop="2dp"/>
+                        android:textSize="14sp" />
+
                 </LinearLayout>
                 
                 <!-- QRIS Payment -->
                 <LinearLayout
                     android:id="@+id/btn_qris_payment"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/white_card_background"
-                    android:gravity="center"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_card_background"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground">
-                    
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
                     <View
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/menu_balance"/>
-                        
+                        android:background="@drawable/menu_balance" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-medium"
                         android:text="QRIS"
                         android:textColor="#2C2C2C"
-                        android:textSize="14sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:layout_marginTop="8dp"/>
-                        
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Scan QR Code"
-                        android:textColor="#808080"
-                        android:textSize="10sp"
-                        android:layout_marginTop="2dp"/>
+                        android:textSize="14sp" />
+
                 </LinearLayout>
             </LinearLayout>
             
